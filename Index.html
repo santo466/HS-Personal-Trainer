@@ -111,6 +111,23 @@
   .tl-desc { font-size:11px; line-height:1.8; color:#cccccc; font-weight:300; }
   .tl-badge { display:inline-block; margin-top:8px; padding:3px 10px; border:1px solid rgba(201,168,76,0.4); border-radius:20px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
 
+  /* FAQ */
+  .faq-section { background:var(--dark); padding:72px 20px; border-top:1px solid var(--border); }
+  .faq-inner { max-width:480px; margin:0 auto; }
+  .faq-list { display:flex; flex-direction:column; gap:10px; margin-top:40px; }
+  .faq-item { background:var(--card-bg); border:1px solid var(--border); border-radius:3px; overflow:hidden; opacity:0; transform:translateY(16px); transition:opacity 0.4s ease, transform 0.4s ease, border-color 0.3s; }
+  .faq-item.visible { opacity:1; transform:translateY(0); }
+  .faq-item.open { border-color:rgba(201,168,76,0.5); }
+  .faq-question { padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer; -webkit-user-select:none; user-select:none; }
+  .faq-question:active { background:rgba(255,255,255,0.02); }
+  .faq-q-text { font-size:13px; font-weight:600; color:#ffffff; line-height:1.4; flex:1; }
+  .faq-toggle { width:26px; height:26px; border-radius:50%; border:1px solid rgba(201,168,76,0.3); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:18px; line-height:1; flex-shrink:0; transition:transform 0.3s, background 0.3s, border-color 0.3s; }
+  .faq-item.open .faq-toggle { transform:rotate(45deg); background:rgba(201,168,76,0.1); border-color:var(--gold); }
+  .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s ease; border-top:1px solid transparent; }
+  .faq-item.open .faq-answer { max-height:300px; border-top-color:rgba(201,168,76,0.15); }
+  .faq-a-text { padding:16px 20px; font-size:12px; line-height:1.9; color:#cccccc; font-weight:300; }
+  .faq-a-text strong { color:var(--gold); font-weight:600; }
+
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
   /* ACCROCHE */
@@ -304,11 +321,11 @@
 
     <div class="offer-card" id="c3">
       <div class="offer-header" onclick="toggleCard('c3')">
-        <div><span class="offer-category">Offre groupe</span><span class="offer-name">Trio</span></div>
+        <div><span class="offer-category">Offre groupe</span><span class="offer-name">Duo / Trio</span></div>
         <div class="offer-toggle">+</div>
       </div>
       <div class="offer-body"><div class="offer-inner">
-        <p class="offer-desc">À trois, l'effort se partage et la motivation décuple. Même qualité de suivi qu'en solo.</p>
+        <p class="offer-desc">À plusieurs, l'effort se partage et la motivation décuple. Même qualité de suivi qu'en solo.</p>
         <div class="features">
           <div class="feature-item included"><div class="feature-dot"></div>Application mobile</div>
           <div class="feature-item included"><div class="feature-dot"></div>Suivi entraînement</div>
@@ -325,6 +342,67 @@
       </div></div>
     </div>
 
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tu te poses des questions ?</p>
+      <h2 class="section-title">FAQ</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item" id="f1">
+        <div class="faq-question" onclick="toggleFaq('f1')">
+          <span class="faq-q-text">Est-ce que ça marche si je suis débutant ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text">Absolument. Les débutants sont souvent ceux qui progressent le plus vite. Mon rôle c'est justement de t'éviter les erreurs que j'ai faites moi-même quand j'ai commencé seul. <strong>Tu pars de zéro ? C'est le meilleur moment pour bien faire les choses.</strong></p></div>
+      </div>
+
+      <div class="faq-item" id="f2">
+        <div class="faq-question" onclick="toggleFaq('f2')">
+          <span class="faq-q-text">De quel matériel j'ai besoin pour le suivi en ligne ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text">Ça dépend de tes objectifs et de ce que tu as accès. <strong>On adapte ton programme à ta situation</strong> — salle de sport, maison, peu d'équipement. L'important c'est la régularité, pas le matériel.</p></div>
+      </div>
+
+      <div class="faq-item" id="f3">
+        <div class="faq-question" onclick="toggleFaq('f3')">
+          <span class="faq-q-text">Combien de temps avant de voir des résultats ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text">Les premiers changements se sentent en <strong>3 à 4 semaines</strong> — plus d'énergie, meilleur sommeil, corps qui se recompose. Les résultats visibles arrivent généralement entre <strong>6 et 12 semaines</strong> selon ton implication et tes objectifs.</p></div>
+      </div>
+
+      <div class="faq-item" id="f4">
+        <div class="faq-question" onclick="toggleFaq('f4')">
+          <span class="faq-q-text">Quelle est la différence entre les formules ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text"><strong>Training</strong> c'est du présentiel, on s'entraîne ensemble en salle. <strong>Suivi en ligne</strong> c'est à distance, tu t'entraînes où tu veux avec mon accompagnement. <strong>Duo/Trio</strong> c'est la même chose qu'en Training mais à 2 ou 3, ce qui réduit le tarif.</p></div>
+      </div>
+
+      <div class="faq-item" id="f5">
+        <div class="faq-question" onclick="toggleFaq('f5')">
+          <span class="faq-q-text">Est-ce que je dois suivre un régime strict ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text">Non. Je ne crois pas aux régimes draconiens, j'y suis passé moi-même. <strong>On construit ensemble une alimentation que tu peux tenir sur la durée.</strong> L'objectif c'est un changement de vie, pas une souffrance temporaire.</p></div>
+      </div>
+
+      <div class="faq-item" id="f6">
+        <div class="faq-question" onclick="toggleFaq('f6')">
+          <span class="faq-q-text">Comment se passe le premier contact ?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer"><p class="faq-a-text">Tu remplis le formulaire de contact ou tu m'envoies un message sur WhatsApp. <strong>On fait un premier échange gratuit</strong> pour comprendre tes objectifs, ta situation et voir si on est sur la même longueur d'onde. Sans engagement.</p></div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -385,6 +463,25 @@ function initTimeline() {
   tlItems.forEach(function(item) { obs.observe(item); });
 }
 initTimeline();
+
+function toggleFaq(id) {
+  var item = document.getElementById(id);
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+  if (!isOpen) { item.classList.add('open'); }
+}
+
+// FAQ animation
+var faqItems = document.querySelectorAll('.faq-item');
+var faqObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+      var idx = Array.from(faqItems).indexOf(entry.target);
+      setTimeout(function() { entry.target.classList.add('visible'); }, idx * 100);
+    }
+  });
+}, { threshold: 0.1 });
+faqItems.forEach(function(item) { faqObserver.observe(item); });
 
 function toggleAbout() {
   var card = document.getElementById('aboutCard');
