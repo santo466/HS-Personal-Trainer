@@ -577,7 +577,7 @@
       </div>
       <div class="input-wrap"><label class="input-label">Email</label><input class="input-field" type="email" id="email" placeholder="ton@email.com"></div>
       <div class="input-wrap"><label class="input-label">Téléphone</label><input class="input-field" type="tel" id="tel" placeholder="+33 6 XX XX XX XX"></div>
-      <button class="submit-btn" id="submitBtn">Envoyer ma demande</button>
+      <button class="submit-btn" id="submitBtn">Recevoir mon bilan offert →</button>
     </div>
     <div id="formSuccess" class="form-success">
       <div class="form-success-icon">✦</div>
@@ -680,10 +680,31 @@ document.getElementById('submitBtn').addEventListener('click', function() {
   var e = document.getElementById('email').value.trim();
   var t = document.getElementById('tel').value.trim();
   if (!p || !n || !e || !t) { alert('Merci de remplir tous les champs.'); return; }
-  var msg = encodeURIComponent('Nouvelle demande :\n\nNom : ' + p + ' ' + n + '\nEmail : ' + e + '\nTél : ' + t);
-  window.location.href = 'https://wa.me/33614696264?text=' + msg;
-  document.getElementById('contactForm').style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
+
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
+
+  // 1. Enregistre le contact via Formspree
+  var data = new FormData();
+  data.append('prenom', p);
+  data.append('nom', n);
+  data.append('email', e);
+  data.append('telephone', t);
+  data.append('_subject', '📩 Nouveau contact — ' + p + ' ' + n);
+  data.append('_replyto', e);
+
+  fetch('https://formspree.io/f/xaqzwvqd', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).finally(function() {
+    // 2. Redirige vers le questionnaire avec les infos en URL
+    var params = new URLSearchParams({
+      prenom: p, nom: n, email: e, tel: t
+    });
+    window.location.href = 'bilan-questionnaire.html?' + params.toString();
+  });
 });
 </script>
 </body>
