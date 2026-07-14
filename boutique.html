@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Nutrition Premium — Boutique HS Personal Trainer</title>
+<meta name="description" content="Le guide nutrition qui transforme ton alimentation en alliée de tes séances. Sans régime strict. PDF, accès immédiat, 29€.">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<style>
+  /* Styles propres à la page Boutique uniquement */
+  /* Hero pleine photo (même structure que l'Accueil), adapté pour une landing produit */
+  /* Hero pleine photo (repris tel quel de l'Accueil, styles manquants réintégrés) */
+  .hero {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end; position: relative;
+    text-align: center; overflow: hidden; padding-bottom: var(--sp-10);
+  }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(160deg, #1c1c1c, var(--black)); }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.05) 0%, rgba(8,8,8,0.15) 25%, rgba(8,8,8,0.75) 60%, rgba(8,8,8,1) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 var(--sp-6); }
+
+  .product-page-hero { min-height: 78vh; }
+  .product-page-hero .hero-content { padding-bottom: var(--sp-8); }
+
+  /* Vitrine produit : couverture mise en avant juste sous le hero */
+  .cover-showcase { display: flex; justify-content: center; padding: var(--sp-10) var(--sp-6); background: var(--dark); border-top: 1px solid var(--border); }
+  .cover-showcase__img { width: 220px; border-radius: var(--radius-md); box-shadow: var(--shadow-gold); }
+
+  .trust-row { display: flex; justify-content: center; gap: var(--sp-5); flex-wrap: wrap; margin-top: var(--sp-6); }
+  .trust-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-dim); max-width: 80px; text-align: center; }
+  .trust-item__icon { font-size: 16px; color: var(--gold); }
+
+  .benefit-strip {
+    display: flex; overflow-x: auto; gap: var(--sp-5); padding: var(--sp-5) var(--sp-6);
+    max-width: var(--content-width); margin: 0 auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+  }
+  .benefit-strip::-webkit-scrollbar { display: none; }
+  .benefit-strip__item {
+    flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 18px; text-align: center; width: 88px;
+  }
+  .benefit-strip__item span { font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-dim); line-height: 1.3; }
+  .benefit-strip__icon { font-size: 20px !important; color: var(--gold); font-weight: 300; }
+
+  .pain-list, .learn-list, .content-list, .who-list, .download-list {
+    display: flex; flex-direction: column; gap: var(--sp-3); max-width: var(--content-width); margin: 0 auto;
+  }
+  .pain-item, .learn-item, .content-item, .who-item, .download-item {
+    display: flex; align-items: flex-start; gap: var(--sp-3); font-size: 13px; color: var(--text); line-height: 1.6;
+  }
+  .pain-item__mark { color: var(--gold); flex-shrink: 0; }
+
+  .why-block { max-width: var(--content-width); margin: 0 auto; text-align: center; }
+  .why-block .body-text { font-size: 14px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO PRODUIT -->
+<header class="hero product-page-hero">
+  <div class="hero-bg">
+    <img src="images/hero.jpg" alt="Hélio Santonocito, coach HS Personal Trainer" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow reveal">Continue à progresser, même entre deux séances</p>
+    <h1 class="h1 reveal delay-1" style="font-size:clamp(30px,7.5vw,42px)">Mange mieux. Progresse davantage.<br><span style="color:var(--gold)">Sans régime.</span></h1>
+    <p class="body-text reveal delay-2" style="max-width:340px;margin:0 auto">Plus de 100 pages de conseils pratiques, méthodes et stratégies nutritionnelles pour améliorer durablement ta composition corporelle et tes performances.</p>
+    <a href="https://buy.stripe.com/8x24gz6JxaK8gJo84j8EM0e" class="btn-primary reveal delay-2" style="max-width:280px;margin:20px auto 0">Acheter le guide – 29€</a>
+    <div class="trust-row reveal delay-3">
+      <div class="trust-item"><span class="trust-item__icon">⬇</span>Téléchargement immédiat</div>
+      <div class="trust-item"><span class="trust-item__icon">▢</span>Compatible tous appareils</div>
+      <div class="trust-item"><span class="trust-item__icon">↻</span>Mises à jour incluses</div>
+    </div>
+  </div>
+</header>
+
+<!-- VITRINE PRODUIT -->
+<div class="cover-showcase reveal">
+  <img class="cover-showcase__img" src="images/cover-nutrition-premium.jpg" alt="Couverture du Guide Nutrition Premium HS Personal Trainer">
+</div>
+
+<!-- BÉNÉFICES CLÉS -->
+<div class="benefit-strip reveal">
+  <div class="benefit-strip__item"><span class="benefit-strip__icon">↓</span><span>Perte de graisse durable</span></div>
+  <div class="benefit-strip__item"><span class="benefit-strip__icon">↑</span><span>Prise de muscle optimisée</span></div>
+  <div class="benefit-strip__item"><span class="benefit-strip__icon">⟡</span><span>Performances améliorées</span></div>
+  <div class="benefit-strip__item"><span class="benefit-strip__icon">◇</span><span>Relation saine avec la nourriture</span></div>
+  <div class="benefit-strip__item"><span class="benefit-strip__icon">✓</span><span>Méthodes simples et applicables</span></div>
+</div>
+
+<!-- PROBLÈMES RÉSOLUS -->
+<section class="section on-dark">
+  <div class="section-header reveal">
+    <p class="eyebrow">Le vrai frein</p>
+    <h2 class="h2">Tu t'entraînes dur. Ton assiette freine tout.</h2>
+  </div>
+  <div class="pain-list">
+    <div class="pain-item reveal"><span class="pain-item__mark">—</span>Aucune idée de quoi manger avant ou après une séance</div>
+    <div class="pain-item reveal delay-1"><span class="pain-item__mark">—</span>Les régimes stricts que tu abandonnes après 2 semaines</div>
+    <div class="pain-item reveal delay-2"><span class="pain-item__mark">—</span>Pas le temps de calculer calories et macros tous les jours</div>
+  </div>
+</section>
+
+<!-- CE QUE TU VAS APPRENDRE -->
+<section class="section">
+  <div class="section-header reveal">
+    <p class="eyebrow">Ce que tu vas apprendre</p>
+    <h2 class="h2">Une méthode, pas une contrainte</h2>
+  </div>
+  <div class="learn-list">
+    <div class="learn-item reveal"><span class="pain-item__mark">✓</span>Structurer tes repas autour de tes séances</div>
+    <div class="learn-item reveal delay-1"><span class="pain-item__mark">✓</span>Ajuster ton alimentation sans jamais te priver</div>
+    <div class="learn-item reveal delay-2"><span class="pain-item__mark">✓</span>Tenir sur la durée — pas juste deux semaines</div>
+  </div>
+</section>
+
+<!-- APERÇU DU CONTENU -->
+<section class="section on-dark">
+  <div class="section-header reveal">
+    <p class="eyebrow">Aperçu</p>
+    <h2 class="h2">Ce que contient le guide</h2>
+  </div>
+  <div class="content-list">
+    <div class="content-item reveal"><span class="pain-item__mark">•</span>Les fondamentaux, sans jargon inutile</div>
+    <div class="content-item reveal delay-1"><span class="pain-item__mark">•</span>Construire ton assiette type</div>
+    <div class="content-item reveal delay-2"><span class="pain-item__mark">•</span>Gérer les écarts et les imprévus sans culpabiliser</div>
+    <div class="content-item reveal delay-3"><span class="pain-item__mark">•</span>Un plan d'action semaine par semaine</div>
+  </div>
+</section>
+
+<!-- POURQUOI CE GUIDE -->
+<section class="section why-block">
+  <div class="section-header reveal">
+    <p class="eyebrow">Pourquoi ce guide existe</p>
+    <h2 class="h2">Ce que j'aurais aimé avoir en 2021</h2>
+  </div>
+  <p class="body-text reveal delay-1">J'ai perdu 30 kg à tâtons, sans méthode, en perdant un temps précieux sur des erreurs évitables. Ce guide, c'est le raccourci que je n'ai pas eu.</p>
+</section>
+
+<!-- POUR QUI -->
+<section class="section on-dark">
+  <div class="section-header reveal">
+    <p class="eyebrow">Pour qui</p>
+    <h2 class="h2">Ce guide est fait pour toi si...</h2>
+  </div>
+  <div class="who-list">
+    <div class="who-item reveal"><span class="pain-item__mark">→</span>Tu débutes et tu ne sais pas par où commencer</div>
+    <div class="who-item reveal delay-1"><span class="pain-item__mark">→</span>Tu t'entraînes déjà mais ton alimentation suit pas</div>
+    <div class="who-item reveal delay-2"><span class="pain-item__mark">→</span>Tu as déjà abandonné un régime trop strict</div>
+  </div>
+</section>
+
+<!-- CE QUE CONTIENT LE TÉLÉCHARGEMENT -->
+<section class="section">
+  <div class="section-header reveal">
+    <p class="eyebrow">Concrètement</p>
+    <h2 class="h2">Ce que tu reçois</h2>
+  </div>
+  <div class="download-list">
+    <div class="download-item reveal"><span class="pain-item__mark">✓</span>Un PDF clair et actionnable</div>
+    <div class="download-item reveal delay-1"><span class="pain-item__mark">✓</span>Accès immédiat après paiement, par email</div>
+    <div class="download-item reveal delay-2"><span class="pain-item__mark">✓</span>Utilisable à vie, à ton rythme</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section on-dark" id="faq">
+  <div class="section-header reveal">
+    <p class="eyebrow">Questions</p>
+    <h2 class="h2">Avant d'acheter</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:var(--content-width);margin:0 auto">
+
+    <div class="card reveal" id="pfaq-1" data-accordion="pfaq">
+      <div class="card-header" onclick="HS.toggleAccordion('pfaq-1')">
+        <span style="font-size:13px;font-weight:600">Je débute en musculation, est-ce adapté ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Oui. Le guide part des bases, sans supposer que tu connais déjà les macros ou le calcul calorique.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-1" id="pfaq-2" data-accordion="pfaq">
+      <div class="card-header" onclick="HS.toggleAccordion('pfaq-2')">
+        <span style="font-size:13px;font-weight:600">Comment je reçois le guide ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Par email, immédiatement après ton paiement.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-2" id="pfaq-3" data-accordion="pfaq">
+      <div class="card-header" onclick="HS.toggleAccordion('pfaq-3')">
+        <span style="font-size:13px;font-weight:600">Dois-je être client en coaching pour l'utiliser ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Non. Le guide est autonome — un accompagnement en plus si tu es déjà coaché, un point de départ solide sinon.</p>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section text-center reveal">
+  <div class="divider"></div>
+  <h2 class="h2" style="margin-bottom:8px">Prêt à corriger ce qui freine tes résultats ?</h2>
+  <!-- Lien de paiement Stripe -->
+  <a href="https://buy.stripe.com/8x24gz6JxaK8gJo84j8EM0e" class="btn-primary" style="max-width:320px;margin:0 auto">Acheter le guide – 29€</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">HS Personal Trainer</div>
+  <nav class="footer-nav" aria-label="Navigation pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-social">
+    <a class="btn-icon" href="https://www.instagram.com/helioosanto?igsh=MW5tNTdtajlxYWZvYg%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7.001a4.999 4.999 0 100 9.998 4.999 4.999 0 000-9.998z"/></svg></a>
+    <a class="btn-icon" href="https://www.facebook.com/share/1AyCTRtEKN" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a class="btn-icon" href="https://wa.me/33614696264" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606a11 11 0 00.446-.52c.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5 5 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+  </div>
+  <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
+</footer>
+
+<script>
+  HS.setActiveNavPage('boutique');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching Sportif Marignane, Saint-Victoret, Bouc-Bel-Air — Offres & Tarifs | HS Personal Trainer</title>
+<meta name="description" content="Découvrez mes formules de coaching individuel, duo/trio et suivi en ligne. Un accompagnement complet, pas une simple séance. Bilan offert et sans engagement.">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<style>
+  /* Styles propres à la page Coaching uniquement */
+  .intro { padding: calc(var(--nav-height) + var(--sp-10)) var(--sp-6) var(--sp-8); max-width: var(--content-width); margin: 0 auto; text-align: center; }
+  .intro .h1 { font-size: clamp(30px,7vw,42px); margin-bottom: var(--sp-3); }
+
+  .manifesto { text-align: center; padding: 0 var(--sp-6) var(--sp-8); max-width: var(--content-width); margin: 0 auto; }
+  .manifesto-line {
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(19px,4.5vw,24px); color: var(--white); line-height: 1.5; margin-top: var(--sp-4);
+  }
+  .manifesto-line strong { color: var(--gold); font-style: normal; font-weight: 700; }
+
+  /* Déroulé de l'accompagnement */
+  .process-steps { display: flex; flex-direction: column; gap: var(--sp-4); max-width: var(--content-width); margin: 0 auto; }
+  .process-step { display: flex; gap: var(--sp-4); align-items: flex-start; }
+  .process-step__num {
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--border-active); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--gold);
+  }
+  .process-step__title { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
+
+  /* Offres */
+  .offer-eyebrow-row { display: flex; align-items: center; gap: var(--sp-2); }
+
+  /* Bloc terrain / lieux narratif */
+  .venue-story-card { display: flex; flex-direction: column; overflow: hidden; }
+  .venue-story-card__img { width: 100%; height: 130px; object-fit: cover; }
+  .venue-story-card__body { padding: var(--sp-4); }
+  .venue-story-card__name { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+  .venue-story-card__loc { font-size: 10px; color: var(--text-dim); margin-bottom: var(--sp-2); }
+  .venue-story-card__fit { font-size: 11px; color: var(--text-mute); font-style: italic; line-height: 1.6; }
+
+  .credibility-block { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); text-align: center; padding: var(--sp-6); }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- INTRO / IDENTITÉ -->
+<header class="intro">
+  <p class="eyebrow reveal">Mon accompagnement</p>
+  <h1 class="h1 reveal delay-1">Un accompagnement, pas une simple formule de coaching.</h1>
+</header>
+
+<!-- VISION -->
+<section class="manifesto reveal">
+  <p class="body-text">Pas de programme tout fait. Un accompagnement construit autour de toi.</p>
+  <p class="manifesto-line">Chaque formule est pensée pour te rendre <strong>plus fort chaque jour</strong>, quel que soit ton point de départ.</p>
+</section>
+
+<!-- DÉROULÉ DE L'ACCOMPAGNEMENT -->
+<section class="section on-dark">
+  <div class="section-header reveal">
+    <p class="eyebrow">Concrètement</p>
+    <h2 class="h2">Ce qu'il se passe après le premier contact</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="process-step__num">1</div>
+      <div>
+        <div class="process-step__title">Bilan offert</div>
+        <p class="body-text">On fait le point sur ton point de départ, tes objectifs et tes contraintes réelles — sans engagement.</p>
+      </div>
+    </div>
+    <div class="process-step reveal delay-1">
+      <div class="process-step__num">2</div>
+      <div>
+        <div class="process-step__title">Programme sur-mesure</div>
+        <p class="body-text">Je construis ton accompagnement autour de ton corps, ton emploi du temps et le lieu qui te convient.</p>
+      </div>
+    </div>
+    <div class="process-step reveal delay-2">
+      <div class="process-step__num">3</div>
+      <div>
+        <div class="process-step__title">Suivi continu</div>
+        <p class="body-text">Ajustements réguliers, présence tout au long du parcours — pas seulement pendant la séance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MES FORMULES -->
+<section class="section" id="formules">
+  <div class="section-header reveal">
+    <p class="eyebrow">Choisis ton parcours</p>
+    <h2 class="h2">Mes formules</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+
+    <!-- TRAINING -->
+    <div class="card" id="offer-training" data-accordion="offres">
+      <div class="card-header" onclick="HS.toggleAccordion('offer-training')">
+        <div>
+          <div class="offer-eyebrow-row"><span class="eyebrow">En présentiel</span><span class="badge badge--gold">Populaire</span></div>
+          <span class="h3">Training</span>
+        </div>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <div class="fit-for"><strong>Faite pour toi si</strong> tu veux un suivi rapproché, en salle, avec quelqu'un qui corrige ta technique en direct et ajuste chaque séance en temps réel.</div>
+        <p class="body-text" style="margin-bottom:14px">Un accompagnement complet entraînement + nutrition, pensé pour progresser vite sans te blesser.</p>
+        <div class="price-row">
+          <div><div class="price-row__name">Clean</div><div class="price-row__duration">3 mois · 12 semaines</div></div>
+          <div><div class="price-row__amount">280€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div class="price-row">
+          <div><div class="price-row__name">Healthy <span class="badge badge--gold">-15%</span></div><div class="price-row__duration">6 mois · 24 semaines</div></div>
+          <div><div class="price-row__amount">240€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div class="price-row price-row--highlight">
+          <div><div class="price-row__name">Perfect <span class="badge badge--gold">-30%</span></div><div class="price-row__duration">12 mois · 52 semaines</div></div>
+          <div><div class="price-row__amount">200€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div style="margin:14px 0">
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Application mobile de suivi</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Suivi d'entraînement en direct</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Suivi diététique personnalisé</div>
+          <div class="feature-item feature-item--excluded"><div class="feature-item__dot"></div>Résultats durables garantis (Perfect uniquement)</div>
+        </div>
+        <a href="contact.html" class="btn-primary">Réserver mon bilan offert</a>
+      </div></div>
+    </div>
+
+    <!-- SUIVI EN LIGNE -->
+    <div class="card" id="offer-online" data-accordion="offres">
+      <div class="card-header" onclick="HS.toggleAccordion('offer-online')">
+        <div><span class="eyebrow">À distance</span><span class="h3" style="display:block">Suivi en ligne</span></div>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <div class="fit-for"><strong>Faite pour toi si</strong> tu voyages, tu as un emploi du temps changeant, ou tu préfères t'entraîner où tu veux tout en gardant un vrai accompagnement.</div>
+        <p class="body-text" style="margin-bottom:14px">Le même sérieux de suivi que le présentiel, sans contrainte de lieu ni d'horaire.</p>
+        <div class="price-row">
+          <div><div class="price-row__name">Pack 3 mois</div><div class="price-row__duration">Suivi de base</div></div>
+          <div><div class="price-row__amount">150€</div><div class="price-row__period">/ mois</div></div>
+        </div>
+        <div class="price-row">
+          <div><div class="price-row__name">Pack 6 mois</div><div class="price-row__duration">Avec on-demand</div></div>
+          <div><div class="price-row__amount">120€</div><div class="price-row__period">/ mois</div></div>
+        </div>
+        <div class="price-row price-row--highlight">
+          <div><div class="price-row__name">Pack 12 mois <span class="badge badge--gold">★</span></div><div class="price-row__duration">On-demand + conseil 7j/7</div></div>
+          <div><div class="price-row__amount">90€</div><div class="price-row__period">/ mois</div></div>
+        </div>
+        <div style="margin:14px 0">
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Application mobile de suivi</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Suivi d'entraînement et diététique</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>On-demand (packs 6 et 12 mois)</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Conseil 7j/7 (pack 12 mois)</div>
+        </div>
+        <a href="contact.html" class="btn-primary">Réserver mon bilan offert</a>
+      </div></div>
+    </div>
+
+    <!-- DUO/TRIO -->
+    <div class="card" id="offer-duo" data-accordion="offres">
+      <div class="card-header" onclick="HS.toggleAccordion('offer-duo')">
+        <div><span class="eyebrow">Offre groupe</span><span class="h3" style="display:block">Duo / Trio</span></div>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <div class="fit-for"><strong>Faite pour toi si</strong> tu veux t'entraîner avec un proche — le même encadrement individuel, mais l'effort et le tarif se partagent.</div>
+        <p class="body-text" style="margin-bottom:14px">Même exigence qu'en solo, avec la motivation en plus d'être accompagné à plusieurs.</p>
+        <div class="price-row">
+          <div><div class="price-row__name">Clean</div><div class="price-row__duration">3 mois · 12 semaines</div></div>
+          <div><div class="price-row__amount">360€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div class="price-row">
+          <div><div class="price-row__name">Healthy <span class="badge badge--gold">-10%</span></div><div class="price-row__duration">6 mois · 24 semaines</div></div>
+          <div><div class="price-row__amount">320€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div class="price-row price-row--highlight">
+          <div><div class="price-row__name">Perfect <span class="badge badge--gold">-20%</span></div><div class="price-row__duration">12 mois · 52 semaines</div></div>
+          <div><div class="price-row__amount">280€</div><div class="price-row__period">/ 4 semaines</div></div>
+        </div>
+        <div style="margin:14px 0">
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Application mobile de suivi</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Suivi d'entraînement en direct</div>
+          <div class="feature-item feature-item--included"><div class="feature-item__dot"></div>Suivi diététique personnalisé</div>
+        </div>
+        <a href="contact.html" class="btn-primary">Réserver mon bilan offert</a>
+      </div></div>
+    </div>
+
+    <!-- SMALL GROUP -->
+    <div class="card" id="offer-smallgroup" data-accordion="offres">
+      <div class="card-header" onclick="HS.toggleAccordion('offer-smallgroup')">
+        <div><span class="eyebrow">Format small group</span><span class="h3" style="display:block">Small Group</span></div>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <div class="fit-for"><strong>Faite pour toi si</strong> tu aimes l'énergie du groupe sans perdre en encadrement — entre 6 et 10 personnes selon la salle, même tarif et même exigence partout.</div>
+        <p class="body-text" style="margin-bottom:14px">Des séances de cross-training en petit groupe, encadrées comme en individuel.</p>
+        <div class="price-row">
+          <div><div class="price-row__name">Séance small group</div><div class="price-row__duration">6 à 10 personnes selon la salle</div></div>
+          <div><div class="price-row__amount">20€</div><div class="price-row__period">/ personne</div></div>
+        </div>
+        <a href="contact.html" class="btn-primary">Réserver mon bilan offert</a>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TERRAIN / LIEUX (narratif) -->
+<section class="section on-dark">
+  <div class="section-header reveal">
+    <p class="eyebrow">Un seul principe, trois environnements</p>
+    <h2 class="h2">Ma méthode s'adapte à ton terrain</h2>
+    <p class="body-text" style="margin-top:8px">Jamais l'inverse. Que tu cherches un cadre premium, la proximité, ou l'intensité d'un format Hyrox — l'accompagnement reste le même.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card venue-story-card reveal" id="studio-performance">
+      <img class="venue-story-card__img" src="images/venue-studioperformance.jpg" alt="Salle Studio Performance Saint-Victoret">
+      <div class="venue-story-card__body">
+        <div class="venue-story-card__name">Studio Performance</div>
+        <div class="venue-story-card__loc">Saint-Victoret</div>
+        <p class="venue-story-card__fit">Pour un cadre premium et un suivi individuel poussé.</p>
+      </div>
+    </div>
+    <div class="card venue-story-card reveal delay-1" id="basic-fit">
+      <img class="venue-story-card__img" src="images/venue-basicfit.jpg" alt="Salle Basic-Fit Marignane">
+      <div class="venue-story-card__body">
+        <div class="venue-story-card__name">Basic-Fit</div>
+        <div class="venue-story-card__loc">Marignane</div>
+        <p class="venue-story-card__fit">Pour t'entraîner près de chez toi, aux horaires qui t'arrangent.</p>
+      </div>
+    </div>
+    <div class="card venue-story-card reveal delay-2" id="summit-training">
+      <img class="venue-story-card__img" src="images/venue-summittraining.jpg" alt="Salle Summit Training Bouc-Bel-Air">
+      <div class="venue-story-card__body">
+        <div class="venue-story-card__name">Summit Training</div>
+        <div class="venue-story-card__loc">Bouc-Bel-Air</div>
+        <p class="venue-story-card__fit">Pour repousser tes limites en groupe, format Hyrox.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉASSURANCE -->
+<section class="section">
+  <div class="section-header reveal">
+    <p class="eyebrow">Pourquoi me faire confiance</p>
+    <h2 class="h2">Une transformation vécue, une certification prouvée</h2>
+  </div>
+  <div class="card credibility-block reveal">
+    <span class="badge badge--outline">30 kg perdus · CQP Instructeur Fitness 2025</span>
+    <p class="body-text">Avant d'être coach, j'ai été mon propre premier client. Je sais exactement ce que tu traverses — et ce qu'il faut pour en sortir.</p>
+  </div>
+  <div class="text-center reveal delay-1" style="margin-top:20px">
+    <a href="methode.html" class="btn-text">Découvrir mon histoire complète →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section on-dark" id="faq">
+  <div class="section-header reveal">
+    <p class="eyebrow">Dernières questions</p>
+    <h2 class="h2">Avant de te lancer</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+
+    <div class="card reveal" id="faq-1" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-1')">
+        <span style="font-size:13px;font-weight:600">Quelle formule choisir si je ne sais pas laquelle me correspond ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">C'est justement le rôle du bilan offert : on en discute ensemble et je t'oriente vers la formule la plus adaptée à ta situation, pas la plus chère.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-1" id="faq-2" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-2')">
+        <span style="font-size:13px;font-weight:600">Puis-je changer de formule en cours de route ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Oui. Ta situation peut évoluer, ton accompagnement s'ajuste avec toi.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-2" id="faq-3" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-3')">
+        <span style="font-size:13px;font-weight:600">Que se passe-t-il si je dois m'absenter (vacances, blessure) ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">On adapte ensemble — suspension temporaire ou ajustement du programme selon la situation. Rien n'est figé.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-3" id="faq-4" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-4')">
+        <span style="font-size:13px;font-weight:600">Combien de temps avant les premiers résultats ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Les premiers changements se sentent en 3 à 4 semaines. Les résultats visibles arrivent généralement entre 6 et 12 semaines selon ton implication.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-4" id="faq-5" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-5')">
+        <span style="font-size:13px;font-weight:600">Y a-t-il un engagement long si ça ne me convient pas ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Le bilan initial est offert et sans engagement. Au-delà, chaque formule précise sa durée — aucune surprise cachée.</p>
+      </div></div>
+    </div>
+
+    <div class="card reveal delay-5" id="faq-6" data-accordion="faq">
+      <div class="card-header" onclick="HS.toggleAccordion('faq-6')">
+        <span style="font-size:13px;font-weight:600">Comment se passe le tout premier contact ?</span>
+        <div class="card-toggle">+</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <p class="body-text" style="margin:14px 0">Un échange gratuit et sans engagement pour comprendre tes objectifs et voir si on est sur la même longueur d'onde.</p>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section text-center reveal">
+  <div class="divider"></div>
+  <h2 class="h2" style="margin-bottom:8px">Prêt à devenir plus fort chaque jour ?</h2>
+  <p class="body-text" style="margin-bottom:24px">Ton bilan est offert et sans engagement.</p>
+  <a href="contact.html" class="btn-primary" style="max-width:320px;margin:0 auto">Réserver mon bilan offert</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">HS Personal Trainer</div>
+  <nav class="footer-nav" aria-label="Navigation pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-social">
+    <a class="btn-icon" href="https://www.instagram.com/helioosanto?igsh=MW5tNTdtajlxYWZvYg%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7.001a4.999 4.999 0 100 9.998 4.999 4.999 0 000-9.998z"/></svg></a>
+    <a class="btn-icon" href="https://www.facebook.com/share/1AyCTRtEKN" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a class="btn-icon" href="https://wa.me/33614696264" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606a11 11 0 00.446-.52c.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5 5 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+  </div>
+  <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
+</footer>
+
+<script>
+  HS.setActiveNavPage('coaching');
+</script>
+
+</body>
+</html>
