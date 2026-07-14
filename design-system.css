@@ -24,7 +24,7 @@
   --border-soft:   rgba(201,168,76,0.10);
 
   --text:      #F0EAD6;
-  --text-dim:  rgba(240,234,214,0.45);
+  --text-dim:  rgba(240,234,214,0.62);
   --text-mute: rgba(240,234,214,0.65);
   --white:     #ffffff;
 
@@ -75,7 +75,9 @@
 
   /* Layout */
   --content-width: 480px;   /* largeur max de lecture, mobile-first */
-  --nav-height: 52px;
+  --content-width-md: 760px;  /* tablette */
+  --content-width-lg: 1140px; /* desktop */
+  --nav-height: 56px;
   --z-nav: 999;
   --z-modal: 1000;
 }
@@ -200,9 +202,9 @@ textarea:focus-visible {
   justify-content: space-between;
 }
 .navbar ul li a {
-  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase;
   color: var(--text-dim); font-weight: 600;
-  padding: var(--sp-2) var(--sp-1); display: block;
+  padding: var(--sp-3) var(--sp-1); display: block;
   border-bottom: 1px solid transparent;
   transition: color var(--t-fast) var(--ease);
 }
@@ -398,6 +400,12 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 .footer-nav { display: flex; justify-content: center; gap: var(--sp-5); flex-wrap: wrap; margin-bottom: var(--sp-5); }
 .footer-nav a { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); }
 .footer-nav a:hover { color: var(--gold); }
+.footer-trust { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: var(--sp-5); padding-bottom: var(--sp-5); border-bottom: 1px solid var(--border); }
+.footer-trust__badge { font-size: 10px; letter-spacing: 1.5px; color: var(--gold); font-weight: 600; }
+.footer-trust__zone { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; }
+.footer-legal { display: flex; justify-content: center; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-3); }
+.footer-legal a { font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-decoration: underline; }
+.footer-legal a:hover { color: var(--text-dim); }
 .footer-copy { font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 2px; }
 
 /* ---------- 12. COMPOSANTS SPÉCIFIQUES ---------- */
@@ -559,11 +567,47 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 }
 .fit-for strong { color: var(--gold); }
 
-/* ---------- 17. BREAKPOINTS DE RÉFÉRENCE ----------
-   Mobile-first : le CSS de base cible le mobile (<640px).
-   sm : 640px  (tablette portrait)
-   md : 960px  (tablette paysage / petit desktop)
-   lg : 1200px (desktop)
-   Toujours ajouter les media queries en min-width, jamais
-   en max-width, pour rester cohérent avec l'écriture mobile-first.
+/* ---------- 18. RESPONSIVE DESKTOP (v1.2 — ajout additif) ----------
+   Élargit les fondations communes à toutes les pages sur tablette/desktop.
+   Les mises en page spécifiques (hero en 2 colonnes, grilles élargies)
+   sont ajoutées dans le CSS propre à chaque page, en s'appuyant sur
+   --content-width-md / --content-width-lg définis ci-dessus.
 ------------------------------------------------------------ */
+@media (min-width: 760px) {
+  .navbar ul { max-width: var(--content-width-md); }
+  .section, .footer-nav, .footer-social { max-width: var(--content-width-md); }
+  .footer-logo, .footer-copy { max-width: var(--content-width-md); margin-left: auto; margin-right: auto; }
+}
+
+@media (min-width: 1200px) {
+  body { font-size: 15px; }
+  .navbar ul { max-width: var(--content-width-lg); }
+  .navbar ul li a { font-size: 12px; letter-spacing: 2.5px; }
+  .section { max-width: var(--content-width-lg); padding-top: var(--sp-18); padding-bottom: var(--sp-18); }
+  .h1 { font-size: clamp(72px, 7vw, 120px); }
+  .h2 { font-size: 48px; }
+  .h3 { font-size: 30px; }
+  .body-text { font-size: 15px; }
+  .btn-primary, .btn-secondary { width: auto; padding-left: var(--sp-10); padding-right: var(--sp-10); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
+  .grid-2 { grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
+}
+
+/* Conteneur deux-colonnes générique, utilisable sur toute page
+   (texte d'un côté, image/visuel de l'autre) — desktop uniquement. */
+.desktop-split { display: block; }
+@media (min-width: 1200px) {
+  .desktop-split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12);
+    align-items: center; max-width: var(--content-width-lg); margin: 0 auto;
+  }
+  .desktop-split.reverse { direction: rtl; }
+  .desktop-split.reverse > * { direction: ltr; }
+}
+
+/* Listes de cartes empilées (offres, FAQ) : restent en 1 colonne jusqu'au
+   desktop pour ne pas comprimer des accordéons sur tablette moyenne. */
+.card-list { display: flex; flex-direction: column; gap: 10px; }
+@media (min-width: 1200px) {
+  .card-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); align-items: start; }
+}

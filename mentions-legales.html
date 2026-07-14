@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — HS Personal Trainer</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<style>
+  .legal-wrap { padding: calc(var(--nav-height) + var(--sp-10)) var(--sp-6) var(--sp-10); max-width: var(--content-width); margin: 0 auto; }
+  .legal-wrap h1 { font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: var(--sp-6); }
+  .legal-wrap h2 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); margin: var(--sp-6) 0 var(--sp-2); }
+  .legal-wrap p, .legal-wrap li { font-size: 13px; line-height: 1.8; color: var(--text-dim); }
+  .legal-wrap ul { padding-left: 18px; }
+  .placeholder { color: var(--gold); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="legal-wrap">
+  <h1>Mentions légales</h1>
+
+  <h2>Éditeur du site</h2>
+  <p>
+    HS Personal Trainer — Hélio Santonocito<br>
+    Statut : <span class="placeholder">[à compléter — ex. auto-entrepreneur]</span><br>
+    SIRET : <span class="placeholder">[à compléter]</span><br>
+    Adresse : <span class="placeholder">[à compléter]</span><br>
+    Email : contact via le <a href="contact.html" style="color:var(--gold)">formulaire de contact</a>
+  </p>
+
+  <h2>Directeur de la publication</h2>
+  <p>Hélio Santonocito</p>
+
+  <h2>Hébergement</h2>
+  <p>
+    Ce site est hébergé par Netlify, Inc.<br>
+    2325 3rd Street, Suite 296, San Francisco, CA 94107, États-Unis
+  </p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>L'ensemble du contenu de ce site (textes, logo, visuels, méthode) est la propriété de HS Personal Trainer, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>
+
+  <h2>Responsabilité</h2>
+  <p>Les informations diffusées sur ce site le sont à titre indicatif et ne remplacent pas un avis médical. Toute pratique sportive doit être adaptée à l'état de santé de chacun.</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">HS Personal Trainer</div>
+  <nav class="footer-nav" aria-label="Navigation pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-legal">
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+  <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    HS.setActiveNavPage('contact');
+  });
+</script>
+
+</body>
+</html>

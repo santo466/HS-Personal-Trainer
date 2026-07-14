@@ -21,6 +21,10 @@
   }
   .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 var(--sp-6); }
   .hero-sub { font-size: 11px; letter-spacing: 6px; text-transform: uppercase; color: var(--text-dim); font-weight: 300; margin-top: var(--sp-3); }
+  .hero-slogan {
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: clamp(22px,5.5vw,32px); color: var(--gold); margin-top: var(--sp-4); line-height: 1.3;
+  }
   .scroll-hint { margin-top: var(--sp-6); display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); cursor: pointer; }
   .scroll-hint span { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); opacity: 0.7; }
   .scroll-arrow { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--gold), transparent); }
@@ -74,6 +78,7 @@
   <div class="hero-content">
     <!-- Logo réel — fichier séparé : logo.png (à placer à côté du HTML en production) -->
     <img src="images/logo.png" alt="HS Personal Trainer" width="180" height="180" style="width:180px;height:180px;object-fit:contain;margin:0 auto 8px;display:block;">
+    <p class="hero-slogan">Plus fort chaque jour.</p>
     <p class="hero-sub">Transformation · Performance · Résultats</p>
     <div class="divider"></div>
     <a href="contact.html" class="btn-primary" style="max-width:280px">Réserver mon bilan offert</a>
@@ -258,6 +263,10 @@
 
 <footer class="footer">
   <div class="footer-logo">HS Personal Trainer</div>
+  <div class="footer-trust">
+    <span class="footer-trust__badge">CQP Instructeur Fitness</span>
+    <span class="footer-trust__zone">Marignane · Saint-Victoret · Bouc-Bel-Air</span>
+  </div>
   <nav class="footer-nav" aria-label="Navigation pied de page">
     <a href="index.html">Accueil</a>
     <a href="methode.html">Méthode</a>
@@ -269,6 +278,10 @@
     <a class="btn-icon" href="https://www.instagram.com/helioosanto?igsh=MW5tNTdtajlxYWZvYg%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7.001a4.999 4.999 0 100 9.998 4.999 4.999 0 000-9.998z"/></svg></a>
     <a class="btn-icon" href="https://www.facebook.com/share/1AyCTRtEKN" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
     <a class="btn-icon" href="https://wa.me/33614696264" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606a11 11 0 00.446-.52c.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5 5 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+  </div>
+  <div class="footer-legal">
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
   </div>
   <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
 </footer>
