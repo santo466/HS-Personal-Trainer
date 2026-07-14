@@ -234,7 +234,7 @@ textarea:focus-visible {
 /* Bouton secondaire : action alternative (en savoir plus, voir la méthode) */
 .btn-secondary {
   display: inline-block; width: 100%;
-  padding: var(--sp-4) - 1px;
+  padding: calc(var(--sp-4) - 1px);
   background: transparent;
   border: 1px solid var(--gold);
   border-radius: var(--radius-sm);

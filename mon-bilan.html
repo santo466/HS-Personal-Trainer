@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Bilan — HS Personal Trainer</title>
+<meta name="description" content="Prépare ton premier échange avec Hélio en remplissant ton bilan initial en quelques minutes.">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<style>
+  /* Styles propres à cette page uniquement */
+  .bilan-intro { padding: calc(var(--nav-height) + var(--sp-8)) var(--sp-6) var(--sp-6); max-width: var(--content-width); margin: 0 auto; text-align: center; }
+  .bilan-intro .h1 { font-size: clamp(26px,6.5vw,36px); margin-bottom: var(--sp-3); }
+
+  .bilan-wrap { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--sp-6) var(--sp-10); }
+
+  .bilan-section { margin-bottom: var(--sp-5); }
+  .bilan-section-head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); background: var(--card-bg); border: 1px solid var(--border); border-bottom: none; border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+  .bilan-section-num { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .bilan-section-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; color: var(--text); }
+  .bilan-section-body { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 0 0 var(--radius-sm) var(--radius-sm); padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); }
+
+  .bilan-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+  .bilan-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-2); }
+
+  .choice-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .choice-pill {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 8px 12px; font-size: 11px; color: var(--text-mute); cursor: pointer; text-align: center;
+    flex: 1; min-width: fit-content; transition: all var(--t-fast) var(--ease); user-select: none;
+  }
+  .choice-pill.active { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 700; }
+
+  .scale-group { display: flex; gap: 4px; }
+  .scale-pill {
+    flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 8px 2px; text-align: center; font-size: 12px; color: var(--text-mute); cursor: pointer;
+    transition: all var(--t-fast) var(--ease); user-select: none;
+  }
+  .scale-pill.active { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 700; }
+  .scale-caption { display: flex; justify-content: space-between; margin-top: 4px; }
+  .scale-caption span { font-size: 9px; color: var(--text-dim); }
+
+  .obj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .obj-pill {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 14px 8px; text-align: center; font-size: 11px; color: var(--text-mute); cursor: pointer;
+    transition: all var(--t-fast) var(--ease); user-select: none;
+  }
+  .obj-pill.active { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold); font-weight: 700; }
+
+  .bilan-submit-wrap { text-align: center; margin-top: var(--sp-6); }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="bilan-intro">
+  <p class="eyebrow reveal">Avant notre échange</p>
+  <h1 class="h1 reveal delay-1">Ton bilan initial</h1>
+  <p class="body-text reveal delay-2">Quelques minutes suffisent. Ça m'aide à préparer un accompagnement vraiment adapté à toi.</p>
+</header>
+
+<div class="bilan-wrap">
+<form id="bilanForm">
+
+  <!-- 01 INFOS GÉNÉRALES -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">01</div><span class="bilan-section-title">Informations générales</span></div>
+    <div class="bilan-section-body">
+      <div class="bilan-grid2">
+        <div class="input-wrap"><label class="input-label">Prénom</label><input class="input-field" type="text" name="prenom" id="f-prenom" required></div>
+        <div class="input-wrap"><label class="input-label">Nom</label><input class="input-field" type="text" name="nom" id="f-nom" required></div>
+      </div>
+      <div class="bilan-grid3">
+        <div class="input-wrap"><label class="input-label">Âge</label><input class="input-field" type="number" name="age"></div>
+        <div class="input-wrap"><label class="input-label">Taille (cm)</label><input class="input-field" type="number" name="taille"></div>
+        <div class="input-wrap"><label class="input-label">Poids (kg)</label><input class="input-field" type="number" name="poids"></div>
+      </div>
+      <div class="bilan-grid2">
+        <div class="input-wrap"><label class="input-label">Email</label><input class="input-field" type="email" name="email" id="f-email" required></div>
+        <div class="input-wrap"><label class="input-label">Téléphone</label><input class="input-field" type="tel" name="telephone" id="f-tel" required></div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Profession</label><input class="input-field" type="text" name="profession"></div>
+      <div class="input-wrap">
+        <label class="input-label">Sexe</label>
+        <div class="choice-group" data-group="sexe">
+          <div class="choice-pill" data-val="Homme">Homme</div>
+          <div class="choice-pill" data-val="Femme">Femme</div>
+          <div class="choice-pill" data-val="Autre">Autre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 OBJECTIFS -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">02</div><span class="bilan-section-title">Objectifs</span></div>
+    <div class="bilan-section-body">
+      <div class="obj-grid" data-group="objectifs" data-multi="true">
+        <div class="obj-pill" data-val="Perte de poids">Perte de poids</div>
+        <div class="obj-pill" data-val="Prise de masse">Prise de masse</div>
+        <div class="obj-pill" data-val="Remise en forme">Remise en forme</div>
+        <div class="obj-pill" data-val="Performance sportive">Performance sportive</div>
+        <div class="obj-pill" data-val="Réathlétisation">Réathlétisation</div>
+        <div class="obj-pill" data-val="Autre">Autre</div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Préciser si besoin</label><textarea class="input-field" name="obj_detail" rows="2"></textarea></div>
+    </div>
+  </div>
+
+  <!-- 03 MODE DE VIE -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">03</div><span class="bilan-section-title">Mode de vie</span></div>
+    <div class="bilan-section-body">
+      <div class="input-wrap"><label class="input-label">Repas par jour</label>
+        <div class="choice-group" data-group="repas">
+          <div class="choice-pill" data-val="2">2</div><div class="choice-pill" data-val="3">3</div>
+          <div class="choice-pill" data-val="4">4</div><div class="choice-pill" data-val="5+">5+</div>
+        </div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Eau par jour</label>
+        <div class="choice-group" data-group="eau">
+          <div class="choice-pill" data-val="- 1L">- 1L</div><div class="choice-pill" data-val="1-2L">1-2L</div><div class="choice-pill" data-val="+ 2L">+ 2L</div>
+        </div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Pas par jour</label>
+        <div class="choice-group" data-group="pas">
+          <div class="choice-pill" data-val="- 5k">- 5k</div><div class="choice-pill" data-val="5-10k">5-10k</div><div class="choice-pill" data-val="+ 10k">+ 10k</div>
+        </div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Qualité du sommeil</label>
+        <div class="scale-group" data-group="sommeil">
+          <div class="scale-pill" data-val="1">1</div><div class="scale-pill" data-val="2">2</div><div class="scale-pill" data-val="3">3</div><div class="scale-pill" data-val="4">4</div><div class="scale-pill" data-val="5">5</div>
+        </div>
+        <div class="scale-caption"><span>Mauvais</span><span>Excellent</span></div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Niveau de stress</label>
+        <div class="scale-group" data-group="stress">
+          <div class="scale-pill" data-val="1">1</div><div class="scale-pill" data-val="2">2</div><div class="scale-pill" data-val="3">3</div><div class="scale-pill" data-val="4">4</div><div class="scale-pill" data-val="5">5</div>
+        </div>
+        <div class="scale-caption"><span>Faible</span><span>Élevé</span></div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Activité professionnelle</label>
+        <div class="choice-group" data-group="activite_pro">
+          <div class="choice-pill" data-val="Sédentaire">Sédentaire</div><div class="choice-pill" data-val="Modérée">Modérée</div><div class="choice-pill" data-val="Active">Active</div>
+        </div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Activité physique actuelle</label><input class="input-field" type="text" name="activite_physique"></div>
+    </div>
+  </div>
+
+  <!-- 04 SPORT -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">04</div><span class="bilan-section-title">Sport</span></div>
+    <div class="bilan-section-body">
+      <div class="input-wrap"><label class="input-label">Expérience musculation</label>
+        <div class="choice-group" data-group="experience">
+          <div class="choice-pill" data-val="Aucune">Aucune</div><div class="choice-pill" data-val="Débutant">Débutant</div>
+          <div class="choice-pill" data-val="Intermédiaire">Intermédiaire</div><div class="choice-pill" data-val="Avancé">Avancé</div>
+        </div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Fréquence d'entraînement</label>
+        <div class="choice-group" data-group="frequence">
+          <div class="choice-pill" data-val="0/sem">0/sem</div><div class="choice-pill" data-val="1-2/sem">1-2/sem</div>
+          <div class="choice-pill" data-val="3-4/sem">3-4/sem</div><div class="choice-pill" data-val="5+/sem">5+/sem</div>
+        </div>
+      </div>
+      <div class="bilan-grid2">
+        <div class="input-wrap"><label class="input-label">Sports pratiqués</label><input class="input-field" type="text" name="sports"></div>
+        <div class="input-wrap"><label class="input-label">Matériel disponible</label><input class="input-field" type="text" name="materiel"></div>
+      </div>
+      <div class="input-wrap"><label class="input-label">Accès salle de sport</label>
+        <div class="choice-group" data-group="acces_salle">
+          <div class="choice-pill" data-val="Oui">Oui</div><div class="choice-pill" data-val="Non">Non</div><div class="choice-pill" data-val="Domicile uniquement">Domicile uniquement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 SANTÉ -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">05</div><span class="bilan-section-title">Santé</span></div>
+    <div class="bilan-section-body">
+      <div class="input-wrap"><label class="input-label">Blessures passées</label><textarea class="input-field" name="blessures" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Douleurs actuelles</label><textarea class="input-field" name="douleurs" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Restrictions médicales</label><textarea class="input-field" name="restrictions" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Traitements en cours</label><textarea class="input-field" name="traitements" rows="2"></textarea></div>
+    </div>
+  </div>
+
+  <!-- 06 MOTIVATION -->
+  <div class="bilan-section reveal">
+    <div class="bilan-section-head"><div class="bilan-section-num">06</div><span class="bilan-section-title">Motivation</span></div>
+    <div class="bilan-section-body">
+      <div class="input-wrap"><label class="input-label">Pourquoi cet objectif, aujourd'hui ?</label><textarea class="input-field" name="motivation_why" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Qu'est-ce qui t'a freiné jusqu'ici ?</label><textarea class="input-field" name="motivation_blocage" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Précédentes tentatives</label><textarea class="input-field" name="motivation_tentatives" rows="2"></textarea></div>
+      <div class="input-wrap"><label class="input-label">Niveau de motivation (1 à 10)</label>
+        <div class="scale-group" data-group="motivation_score">
+          <div class="scale-pill" data-val="1">1</div><div class="scale-pill" data-val="2">2</div><div class="scale-pill" data-val="3">3</div><div class="scale-pill" data-val="4">4</div><div class="scale-pill" data-val="5">5</div>
+          <div class="scale-pill" data-val="6">6</div><div class="scale-pill" data-val="7">7</div><div class="scale-pill" data-val="8">8</div><div class="scale-pill" data-val="9">9</div><div class="scale-pill" data-val="10">10</div>
+        </div>
+        <div class="scale-caption"><span>Faible</span><span>Maximum</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bilan-submit-wrap reveal">
+    <button type="submit" class="btn-primary" id="bilanSubmitBtn" style="max-width:320px;margin:0 auto">Envoyer mon bilan</button>
+  </div>
+</form>
+
+<div id="bilanSuccess" class="form-success" style="margin-top:24px">
+  <div class="form-success-icon">✦</div>
+  <p class="body-text">
+    <strong style="color:var(--gold)">Merci !</strong><br>
+    Ton bilan est bien reçu. On en reparle très vite.
+  </p>
+</div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">HS Personal Trainer</div>
+  <nav class="footer-nav" aria-label="Navigation pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
+</footer>
+
+<script>
+  HS.setActiveNavPage('contact');
+
+  // Pré-remplissage depuis l'URL si on arrive via le lien du formulaire de contact
+  (function prefillFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('prenom')) document.getElementById('f-prenom').value = params.get('prenom');
+    if (params.get('nom')) document.getElementById('f-nom').value = params.get('nom');
+    if (params.get('email')) document.getElementById('f-email').value = params.get('email');
+    if (params.get('tel')) document.getElementById('f-tel').value = params.get('tel');
+  })();
+
+  // Choix simples (une seule sélection par groupe)
+  document.querySelectorAll('.choice-group, .scale-group').forEach(function (group) {
+    const isMulti = false;
+    group.querySelectorAll('.choice-pill, .scale-pill').forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        group.querySelectorAll('.choice-pill, .scale-pill').forEach(function (p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+      });
+    });
+  });
+
+  // Objectifs : sélection multiple
+  document.querySelectorAll('.obj-grid').forEach(function (group) {
+    group.querySelectorAll('.obj-pill').forEach(function (pill) {
+      pill.addEventListener('click', function () { pill.classList.toggle('active'); });
+    });
+  });
+
+  function collectChoices() {
+    const result = {};
+    document.querySelectorAll('.choice-group, .scale-group').forEach(function (group) {
+      const active = group.querySelector('.active');
+      result[group.dataset.group] = active ? active.dataset.val : '';
+    });
+    document.querySelectorAll('.obj-grid').forEach(function (group) {
+      const actives = Array.from(group.querySelectorAll('.obj-pill.active')).map(function (p) { return p.dataset.val; });
+      result[group.dataset.group] = actives.join(', ');
+    });
+    return result;
+  }
+
+  document.getElementById('bilanForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('bilanSubmitBtn');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+    const choices = collectChoices();
+    Object.keys(choices).forEach(function (key) { data.append(key, choices[key]); });
+    data.append('_subject', '📋 Bilan complet — ' + data.get('prenom') + ' ' + data.get('nom'));
+    data.append('_replyto', data.get('email'));
+
+    fetch('https://formspree.io/f/xaqzwvqd', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Formspree a refusé la requête (statut ' + response.status + ')');
+        form.style.display = 'none';
+        document.getElementById('bilanSuccess').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function (err) {
+        console.error(err);
+        btn.textContent = 'Envoyer mon bilan';
+        btn.disabled = false;
+        alert("Une erreur est survenue lors de l'envoi. Réessaie ou contacte-moi directement via WhatsApp.");
+      });
+  });
+</script>
+
+</body>
+</html>

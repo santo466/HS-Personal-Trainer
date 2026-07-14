@@ -64,9 +64,17 @@
     </div>
     <button type="submit" class="btn-primary" id="submitBtn">Réserver mon bilan offert</button>
   </form>
+
   <div id="formSuccess" class="form-success">
     <div class="form-success-icon">✦</div>
-    <p class="body-text"><strong style="color:var(--gold)">Merci !</strong><br>Ta demande a bien été reçue.<br>Je te recontacte très rapidement.</p>
+    <p class="body-text" style="margin-bottom:20px">
+      <strong style="color:var(--gold)">Merci d'avoir pris le temps !</strong><br>
+      Ta demande a bien été reçue, je te recontacte très rapidement.
+    </p>
+    <p class="body-text" style="font-size:12px;margin-bottom:14px">
+      Tu peux, si tu le souhaites, déjà préparer notre échange :
+    </p>
+    <a href="#" id="bilanLink" class="btn-secondary" style="max-width:280px;margin:0 auto">Remplir mon questionnaire bilan</a>
   </div>
 </section>
 
@@ -129,14 +137,25 @@
       body: data,
       headers: { 'Accept': 'application/json' }
     })
-      .then(function () {
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Formspree a refusé la requête (statut ' + response.status + ')');
+        }
+        const params = new URLSearchParams({
+          prenom: data.get('prenom'),
+          nom: data.get('nom'),
+          email: data.get('email'),
+          tel: data.get('telephone')
+        });
+        document.getElementById('bilanLink').href = 'mon-bilan.html?' + params.toString();
         form.style.display = 'none';
         document.getElementById('formSuccess').classList.add('visible');
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error(err);
         btn.textContent = originalText;
         btn.disabled = false;
-        alert("Une erreur est survenue. Réessaie ou contacte-moi directement via WhatsApp.");
+        alert("Une erreur est survenue lors de l'envoi. Réessaie ou contacte-moi directement via WhatsApp.");
       });
   });
 </script>
