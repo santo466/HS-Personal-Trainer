@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Politique de confidentialité — HS Personal Trainer</title>
 <meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="design-system.css">
 <script src="common.js" defer></script>
 <style>
@@ -18,20 +22,27 @@
 <body>
 
 <nav class="navbar">
+  <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <ul>
     <li><a href="index.html" data-page="accueil">Accueil</a></li>
     <li><a href="methode.html" data-page="methode">Méthode</a></li>
     <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="bibliotheque-exercices.html" data-page="exercices">Exercices</a></li>
     <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="reservation.html" data-page="reservation">Réserver</a></li>
     <li><a href="contact.html" data-page="contact">Contact</a></li>
   </ul>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <div class="legal-wrap">
   <h1>Politique de confidentialité</h1>
 
   <h2>Données collectées</h2>
-  <p>Lorsque tu remplis le formulaire de contact ou le questionnaire bilan, nous collectons : prénom, nom, email, téléphone, et selon le formulaire, des informations relatives à tes objectifs et ta condition physique.</p>
+  <p>Lorsque tu remplis le formulaire de contact ou le questionnaire Déclic, nous collectons : prénom, nom, email, téléphone, et selon le formulaire, des informations relatives à tes objectifs et ta condition physique.</p>
 
   <h2>Utilisation des données</h2>
   <p>Ces informations servent uniquement à :</p>
@@ -60,7 +71,9 @@
     <a href="index.html">Accueil</a>
     <a href="methode.html">Méthode</a>
     <a href="coaching.html">Coaching</a>
+    <a href="bibliotheque-exercices.html">Exercices</a>
     <a href="boutique.html">Boutique</a>
+    <a href="reservation.html">Réserver</a>
     <a href="contact.html">Contact</a>
   </nav>
   <div class="footer-legal">

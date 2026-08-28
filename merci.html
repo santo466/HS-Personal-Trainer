@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merci — HS Personal Trainer</title>
 <meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="design-system.css">
 <script src="common.js" defer></script>
 <style>
@@ -15,14 +19,21 @@
 <body>
 
 <nav class="navbar">
+  <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <ul>
     <li><a href="index.html" data-page="accueil">Accueil</a></li>
     <li><a href="methode.html" data-page="methode">Méthode</a></li>
     <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="bibliotheque-exercices.html" data-page="exercices">Exercices</a></li>
     <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="reservation.html" data-page="reservation">Réserver</a></li>
     <li><a href="contact.html" data-page="contact">Contact</a></li>
   </ul>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <section class="merci-wrap reveal">
   <div class="form-success-icon" style="margin-bottom:16px">✦</div>
@@ -33,7 +44,7 @@
   <div class="divider"></div>
 
   <p class="body-text" style="margin-bottom:16px">Tu peux, si tu le souhaites, déjà préparer notre rendez-vous :</p>
-  <a href="#" id="bilanLink" class="btn-primary" style="max-width:320px;margin:0 auto">Remplir mon questionnaire bilan</a>
+  <a href="#" id="bilanLink" class="btn-primary" style="max-width:320px;margin:0 auto">Compléter mon Déclic</a>
 </section>
 
 <footer class="footer">
@@ -46,7 +57,9 @@
     <a href="index.html">Accueil</a>
     <a href="methode.html">Méthode</a>
     <a href="coaching.html">Coaching</a>
+    <a href="bibliotheque-exercices.html">Exercices</a>
     <a href="boutique.html">Boutique</a>
+    <a href="reservation.html">Réserver</a>
     <a href="contact.html">Contact</a>
   </nav>
   <div class="footer-legal">
@@ -61,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
   HS.setActiveNavPage('contact');
 
   // Récupère les infos transmises depuis le formulaire de contact
-  // pour pré-remplir le questionnaire bilan, sans obliger à retaper.
+  // pour pré-remplir Le Déclic, sans obliger à retaper.
   const params = new URLSearchParams(window.location.search);
   const bilanParams = new URLSearchParams({
     prenom: params.get('prenom') || '',

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réserve ton Déclic — HS Personal Trainer</title>
+<meta name="description" content="Choisis directement un créneau pour ton Déclic avec Hélio Santonocito, coach sportif certifié à Marignane.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<style>
+  .resa-intro { padding: calc(var(--nav-height) + var(--sp-8)) var(--sp-6) var(--sp-6); max-width: var(--content-width); margin: 0 auto; text-align: center; }
+  .resa-intro .h1 { font-size: clamp(26px,6.5vw,36px); margin-bottom: var(--sp-3); }
+
+  .resa-wrap { max-width: var(--content-width-lg); margin: 0 auto; padding: 0 var(--sp-6) var(--sp-10); }
+
+  /* Sélecteur de lieu */
+  .venue-picker { display: flex; flex-direction: column; gap: 8px; margin-bottom: var(--sp-6); }
+  @media (min-width: 640px) { .venue-picker { flex-direction: row; } }
+  .venue-pill {
+    flex: 1; padding: var(--sp-4); text-align: left;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    cursor: pointer; transition: all var(--t-fast) var(--ease); user-select: none;
+  }
+  .venue-pill.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .venue-pill__name { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
+  .venue-pill.active .venue-pill__name { color: var(--gold); }
+  .venue-pill__loc { font-size: 11px; color: var(--text-dim); }
+
+  .resa-step-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: var(--sp-2); }
+
+  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-4); }
+  .cal-header__label { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); text-transform: capitalize; }
+  .cal-nav-btn {
+    width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03); color: var(--gold); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px; user-select: none;
+  }
+  .cal-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
+
+  .cal-dow-row { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: 6px; }
+  .cal-dow { text-align: center; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: var(--sp-5); }
+  .cal-cell {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+    border: 1px solid transparent; color: var(--text-dim); transition: all var(--t-fast) var(--ease);
+  }
+  .cal-cell--empty { visibility: hidden; }
+  .cal-cell--muted { background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.15); }
+  .cal-cell--available { background: rgba(50,200,100,0.12); border-color: rgba(50,200,100,0.4); color: #8FE3AC; cursor: pointer; }
+  .cal-cell--available:hover { border-color: rgba(50,200,100,0.8); }
+  .cal-cell--full { background: rgba(220,80,80,0.10); border-color: rgba(220,80,80,0.3); color: rgba(220,140,140,0.75); }
+  .cal-cell--selected { border-color: var(--gold) !important; background: rgba(201,168,76,0.2) !important; color: var(--gold) !important; }
+
+  .cal-legend { display: flex; gap: var(--sp-4); justify-content: center; margin-bottom: var(--sp-6); flex-wrap: wrap; }
+  .cal-legend__item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-dim); }
+  .cal-legend__dot { width: 9px; height: 9px; border-radius: 2px; }
+
+  .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: var(--sp-6); }
+  @media (min-width: 640px) { .slot-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 1200px) { .slot-grid { grid-template-columns: repeat(6, 1fr); } }
+  .slot-pill {
+    padding: var(--sp-3) 4px; text-align: center; font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text); cursor: pointer; transition: all var(--t-fast) var(--ease);
+  }
+  .slot-pill:hover { border-color: var(--border-active); }
+  .slot-pill.taken { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; pointer-events: none; }
+  .slot-pill.selected { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+  .resa-status { text-align: center; padding: var(--sp-8) var(--sp-6); color: var(--text-dim); font-size: 12px; }
+
+  .resa-form-wrap { max-width: var(--content-width); margin: 0 auto; }
+  .resa-recap { background: rgba(201,168,76,0.08); border: 1px solid var(--border-active); border-radius: var(--radius-sm); padding: var(--sp-4); margin-bottom: var(--sp-5); text-align: center; }
+  .resa-recap strong { color: var(--gold); }
+
+  .resa-fallback { text-align: center; padding: var(--sp-10) var(--sp-6); }
+  .resa-fallback p { margin-bottom: var(--sp-5); }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="bibliotheque-exercices.html" data-page="exercices">Exercices</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="reservation.html" data-page="reservation">Réserver</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<header class="resa-intro">
+  <p class="eyebrow reveal">Ton Déclic offert</p>
+  <h1 class="h1 reveal delay-1">Choisis ton créneau</h1>
+  <p class="body-text reveal delay-2">Lundi à vendredi, 9h30 – 16h. Confirmation immédiate.</p>
+</header>
+
+<div class="resa-wrap reveal" id="resaWrap">
+
+  <p class="resa-step-label">1. Choisis ton jour</p>
+  <div class="cal-header">
+    <div class="cal-nav-btn" id="calPrev">‹</div>
+    <div class="cal-header__label" id="calLabel"></div>
+    <div class="cal-nav-btn" id="calNext">›</div>
+  </div>
+  <div class="cal-dow-row">
+    <div class="cal-dow">L</div><div class="cal-dow">M</div><div class="cal-dow">M</div>
+    <div class="cal-dow">J</div><div class="cal-dow">V</div><div class="cal-dow">S</div><div class="cal-dow">D</div>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+  <div class="cal-legend">
+    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(50,200,100,0.5)"></div>Disponible</div>
+    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(220,80,80,0.4)"></div>Complet</div>
+    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(255,255,255,0.08)"></div>Fermé</div>
+  </div>
+
+  <div id="resaStatus" class="resa-status" style="display:none"></div>
+
+  <div id="resaStep2" style="display:none">
+    <p class="resa-step-label">2. Choisis ton horaire</p>
+    <div class="slot-grid" id="slotGrid"></div>
+  </div>
+
+  <div id="resaStep3" style="display:none">
+    <p class="resa-step-label">3. Choisis ton lieu</p>
+    <div class="venue-picker" id="venuePicker">
+      <div class="venue-pill" data-venue="Studio Performance">
+        <div class="venue-pill__name">Studio Performance</div>
+        <div class="venue-pill__loc">Saint-Victoret</div>
+      </div>
+      <div class="venue-pill" data-venue="Basic-Fit">
+        <div class="venue-pill__name">Basic-Fit</div>
+        <div class="venue-pill__loc">Marignane</div>
+      </div>
+      <div class="venue-pill" data-venue="Summit Training">
+        <div class="venue-pill__name">Summit Training</div>
+        <div class="venue-pill__loc">Bouc-Bel-Air</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resaStep4" style="display:none">
+    <p class="resa-step-label">4. Tes coordonnées</p>
+    <div class="resa-form-wrap" id="resaFormWrap">
+      <div class="resa-recap" id="resaRecap"></div>
+      <form id="resaForm" class="contact-form">
+        <div class="form-row">
+          <div class="input-wrap">
+            <label class="input-label" for="rPrenom">Prénom</label>
+            <input class="input-field" type="text" id="rPrenom" name="prenom" autocomplete="given-name" required>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label" for="rNom">Nom</label>
+            <input class="input-field" type="text" id="rNom" name="nom" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="input-wrap">
+          <label class="input-label" for="rEmail">Email</label>
+          <input class="input-field" type="email" id="rEmail" name="email" autocomplete="email" required>
+        </div>
+        <div class="input-wrap">
+          <label class="input-label" for="rTel">Téléphone</label>
+          <input class="input-field" type="tel" id="rTel" name="telephone" autocomplete="tel" required>
+        </div>
+        <button type="submit" class="btn-primary" id="resaSubmitBtn" style="margin-top:8px">Confirmer ma réservation</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="resa-form-wrap" id="resaSuccessWrap" style="display:none">
+    <div class="form-success visible">
+      <div class="form-success-icon">✦</div>
+      <p class="body-text"><strong style="color:var(--gold)">C'est confirmé !</strong><br>Ton créneau est réservé. Je te recontacte si besoin, sinon on se voit à l'heure prévue.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="resa-fallback" id="resaFallback" style="display:none">
+  <p class="body-text">La prise de rendez-vous en ligne arrive très bientôt. En attendant, contacte-moi directement :</p>
+  <a href="contact.html" class="btn-primary" style="max-width:280px;margin:0 auto">Réserver mon Déclic</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">HS Personal Trainer</div>
+  <div class="footer-trust">
+    <span class="footer-trust__badge">CQP Instructeur Fitness</span>
+    <span class="footer-trust__zone">Marignane · Saint-Victoret · Bouc-Bel-Air</span>
+  </div>
+  <nav class="footer-nav" aria-label="Navigation pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="bibliotheque-exercices.html">Exercices</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="reservation.html">Réserver</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="footer-social">
+    <a class="btn-icon" href="https://www.instagram.com/helioosanto?igsh=MW5tNTdtajlxYWZvYg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7.001a4.999 4.999 0 100 9.998 4.999 4.999 0 000-9.998z"/></svg></a>
+    <a class="btn-icon" href="https://www.facebook.com/share/1AyCTRtEKN" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a class="btn-icon" href="https://wa.me/33614696264" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606a11 11 0 00.446-.52c.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5 5 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+  </div>
+  <div class="footer-legal">
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+  <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  HS.setActiveNavPage('reservation');
+
+  // ⚠️ CONFIGURATION EN ATTENTE : remplace ces deux valeurs par celles de
+  // ton projet Supabase (Project Settings → API). Ce sont des identifiants
+  // publics, faits pour être utilisés côté navigateur — pas des secrets.
+  var SUPABASE_URL = 'https://xtehbaogitldkhguzmcw.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_8lM-dgrsk9nKjmpPmpskoA_lECBNmtU';
+
+  if (SUPABASE_URL.indexOf('TON-PROJECT-URL') !== -1) {
+    document.getElementById('resaWrap').style.display = 'none';
+    document.getElementById('resaFallback').style.display = 'block';
+    return;
+  }
+
+  if (typeof supabase === 'undefined') {
+    // La librairie externe n'a pas pu charger (réseau, CDN indisponible...)
+    document.getElementById('resaWrap').style.display = 'none';
+    document.getElementById('resaFallback').style.display = 'block';
+    return;
+  }
+
+  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var WORK_DAYS = [1, 2, 3, 4, 5];
+  var START_HOUR = 9, START_MIN = 30;
+  var END_HOUR = 16, END_MIN = 0;
+  var SLOT_DURATION_MIN = 45;
+  var MIN_NOTICE_HOURS = 24;
+  var DAYS_AHEAD = 21;
+
+  var slotGrid = document.getElementById('slotGrid');
+  var status = document.getElementById('resaStatus');
+  var formWrap = document.getElementById('resaFormWrap');
+  var successWrap = document.getElementById('resaSuccessWrap');
+  var recap = document.getElementById('resaRecap');
+  var form = document.getElementById('resaForm');
+  var venuePicker = document.getElementById('venuePicker');
+  var step2 = document.getElementById('resaStep2');
+  var step3 = document.getElementById('resaStep3');
+  var step4 = document.getElementById('resaStep4');
+
+  var selectedVenue = null;
+  var selectedDate = null;
+  var selectedSlot = null;
+  var viewMonth = new Date(); viewMonth.setDate(1); viewMonth.setHours(0,0,0,0);
+  var today = new Date(); today.setHours(0,0,0,0);
+  var maxDate = new Date(today.getTime() + DAYS_AHEAD * 86400000);
+  var monthAvailability = {}; // { 'YYYY-MM-DD': true/false }
+
+  var calGrid = document.getElementById('calGrid');
+  var calLabel = document.getElementById('calLabel');
+  var calPrev = document.getElementById('calPrev');
+  var calNext = document.getElementById('calNext');
+
+  venuePicker.querySelectorAll('.venue-pill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      venuePicker.querySelectorAll('.venue-pill').forEach(function (p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      selectedVenue = pill.dataset.venue;
+      showStep4();
+    });
+  });
+
+  function showStep4() {
+    var dows = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    var months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    recap.innerHTML = 'Créneau choisi : <strong>' + dows[selectedDate.getDay()] + ' ' + selectedDate.getDate() + ' ' + months[selectedDate.getMonth()] + ' à ' + selectedSlot + '</strong><br>Lieu : <strong>' + selectedVenue + '</strong>';
+    step4.style.display = 'block';
+    step4.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function setStatus(text, show) {
+    status.textContent = text;
+    status.style.display = show ? 'block' : 'none';
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function isoDate(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+  function generateSlots() {
+    var slots = [];
+    var t = START_HOUR * 60 + START_MIN;
+    var end = END_HOUR * 60 + END_MIN;
+    while (t + SLOT_DURATION_MIN <= end) {
+      slots.push(pad(Math.floor(t / 60)) + ':' + pad(t % 60));
+      t += SLOT_DURATION_MIN;
+    }
+    return slots;
+  }
+
+  var GOOGLE_BUSY_URL = 'https://xtehbaogitldkhguzmcw.supabase.co/functions/v1/quick-function';
+  var googleBusyEvents = [];
+
+  function fetchGoogleBusy() {
+    return fetch(GOOGLE_BUSY_URL, {
+      headers: {
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'apikey': SUPABASE_ANON_KEY
+      }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        googleBusyEvents = (data.events || []).map(function (e) {
+          return { start: new Date(e.start), end: new Date(e.end) };
+        });
+      })
+      .catch(function (err) {
+        console.error('Google Agenda indisponible, on continue sans :', err);
+        googleBusyEvents = [];
+      });
+  }
+
+  function isSlotBusyInGoogle(slotStart, slotEnd) {
+    return googleBusyEvents.some(function (ev) {
+      return slotStart < ev.end && slotEnd > ev.start;
+    });
+  }
+
+  function loadMonth() {
+    var monthStart = new Date(viewMonth);
+    var monthEnd = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0);
+    calGrid.innerHTML = '';
+    setStatus('Chargement du calendrier...', true);
+    slotGrid.innerHTML = '';
+    slotGrid.style.display = 'none';
+    formWrap.style.display = 'none';
+
+    Promise.all([
+      sb.from('reservations_public')
+        .select('slot_date, slot_time')
+        .gte('slot_date', isoDate(monthStart))
+        .lte('slot_date', isoDate(monthEnd)),
+      fetchGoogleBusy()
+    ]).then(function (results) {
+      var res = results[0];
+      var takenByDate = {};
+      (res.data || []).forEach(function (r) {
+        var key = r.slot_date;
+        if (!takenByDate[key]) takenByDate[key] = [];
+        takenByDate[key].push(r.slot_time.slice(0, 5));
+      });
+      computeMonthAvailability(monthStart, monthEnd, takenByDate);
+      renderCalendar(monthStart, monthEnd);
+      setStatus('', false);
+    });
+  }
+
+  function computeMonthAvailability(monthStart, monthEnd, takenByDate) {
+    monthAvailability = {};
+    var allSlots = generateSlots();
+    var d = new Date(monthStart);
+    while (d <= monthEnd) {
+      var key = isoDate(d);
+      if (WORK_DAYS.indexOf(d.getDay()) !== -1 && d >= today && d <= maxDate) {
+        var taken = takenByDate[key] || [];
+        var minTime = new Date(Date.now() + MIN_NOTICE_HOURS * 3600000);
+        var freeCount = allSlots.filter(function (time) {
+          if (taken.indexOf(time) !== -1) return false;
+          var parts = time.split(':');
+          var slotStart = new Date(d);
+          slotStart.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+          if (slotStart < minTime) return false;
+          var slotEnd = new Date(slotStart.getTime() + SLOT_DURATION_MIN * 60000);
+          if (isSlotBusyInGoogle(slotStart, slotEnd)) return false;
+          return true;
+        }).length;
+        monthAvailability[key] = freeCount > 0;
+      }
+      d.setDate(d.getDate() + 1);
+    }
+  }
+
+  function renderCalendar(monthStart, monthEnd) {
+    var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    calLabel.textContent = months[viewMonth.getMonth()] + ' ' + viewMonth.getFullYear();
+
+    var firstDow = (monthStart.getDay() + 6) % 7; // lundi = 0
+    for (var i = 0; i < firstDow; i++) {
+      var empty = document.createElement('div');
+      empty.className = 'cal-cell cal-cell--empty';
+      calGrid.appendChild(empty);
+    }
+
+    var d = new Date(monthStart);
+    while (d <= monthEnd) {
+      var key = isoDate(d);
+      var cell = document.createElement('div');
+      cell.textContent = d.getDate();
+
+      if (Object.prototype.hasOwnProperty.call(monthAvailability, key)) {
+        var isAvailable = monthAvailability[key];
+        cell.className = 'cal-cell ' + (isAvailable ? 'cal-cell--available' : 'cal-cell--full');
+        if (isAvailable) {
+          (function (dateObj, cellEl) {
+            cellEl.addEventListener('click', function () {
+              calGrid.querySelectorAll('.cal-cell').forEach(function (c) { c.classList.remove('cal-cell--selected'); });
+              cellEl.classList.add('cal-cell--selected');
+              selectDate(dateObj);
+            });
+          })(new Date(d), cell);
+        }
+      } else {
+        cell.className = 'cal-cell cal-cell--muted';
+      }
+
+      calGrid.appendChild(cell);
+      d.setDate(d.getDate() + 1);
+    }
+  }
+
+  calPrev.addEventListener('click', function () {
+    var prevMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1);
+    if (prevMonth.getFullYear() === today.getFullYear() && prevMonth.getMonth() === today.getMonth() || prevMonth > today) {
+      viewMonth = prevMonth;
+      loadMonth();
+    }
+  });
+  calNext.addEventListener('click', function () {
+    var nextMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1);
+    if (nextMonth <= maxDate) {
+      viewMonth = nextMonth;
+      loadMonth();
+    }
+  });
+
+  function selectDate(date) {
+    selectedDate = date;
+    selectedSlot = null;
+    selectedVenue = null;
+    step3.style.display = 'none';
+    step4.style.display = 'none';
+    venuePicker.querySelectorAll('.venue-pill').forEach(function (p) { p.classList.remove('active'); });
+    step2.style.display = 'block';
+    slotGrid.innerHTML = '';
+    setStatus('Chargement des créneaux...', true);
+
+    sb.from('reservations_public')
+      .select('slot_time')
+      .eq('slot_date', isoDate(date))
+      .then(function (res) {
+        var taken = (res.data || []).map(function (r) { return r.slot_time.slice(0, 5); });
+        renderSlots(date, taken);
+      });
+  }
+
+  function renderSlots(date, taken) {
+    setStatus('', false);
+    var now = new Date();
+    var minTime = new Date(now.getTime() + MIN_NOTICE_HOURS * 3600000);
+    var allSlots = generateSlots();
+    var visibleCount = 0;
+
+    allSlots.forEach(function (time) {
+      var parts = time.split(':');
+      var slotDateTime = new Date(date);
+      slotDateTime.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+      if (slotDateTime < minTime) return;
+
+      var slotEnd = new Date(slotDateTime.getTime() + SLOT_DURATION_MIN * 60000);
+      var isTaken = taken.indexOf(time) !== -1 || isSlotBusyInGoogle(slotDateTime, slotEnd);
+
+      visibleCount++;
+      var pill = document.createElement('div');
+      pill.className = 'slot-pill' + (isTaken ? ' taken' : '');
+      pill.textContent = time;
+      if (!isTaken) {
+        pill.addEventListener('click', function () {
+          slotGrid.querySelectorAll('.slot-pill').forEach(function (p) { p.classList.remove('selected'); });
+          pill.classList.add('selected');
+          selectSlot(time);
+        });
+      }
+      slotGrid.appendChild(pill);
+    });
+
+    if (visibleCount === 0) {
+
+      setStatus('Aucun créneau disponible ce jour-là.', true);
+    }
+  }
+
+  function selectSlot(time) {
+    selectedSlot = time;
+    step3.style.display = 'block';
+    step3.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('resaSubmitBtn');
+    var original = btn.textContent;
+    btn.textContent = 'Confirmation en cours...';
+    btn.disabled = true;
+
+    sb.from('reservations').insert({
+      slot_date: isoDate(selectedDate),
+      slot_time: selectedSlot,
+      lieu: selectedVenue,
+      prenom: document.getElementById('rPrenom').value.trim(),
+      nom: document.getElementById('rNom').value.trim(),
+      email: document.getElementById('rEmail').value.trim(),
+      telephone: document.getElementById('rTel').value.trim()
+    }).then(function (res) {
+      btn.textContent = original;
+      btn.disabled = false;
+      if (res.error) {
+        if (res.error.code === '23505') {
+          alert('Ce créneau vient tout juste d\'être pris. Choisis-en un autre.');
+          selectDate(selectedDate);
+        } else {
+          console.error(res.error);
+          alert("Une erreur est survenue. Réessaie ou contacte-moi directement via WhatsApp.");
+        }
+        return;
+      }
+      step2.style.display = 'none';
+      step3.style.display = 'none';
+      step4.style.display = 'none';
+      successWrap.style.display = 'block';
+    });
+  });
+
+  loadMonth();
+});
+</script>
+
+</body>
+</html>

@@ -193,24 +193,70 @@ textarea:focus-visible {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-soft);
   padding: 0 var(--sp-5);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: space-between;
   height: var(--nav-height);
 }
-.navbar ul {
-  display: flex; list-style: none;
-  width: 100%; max-width: var(--content-width);
-  justify-content: space-between;
+.navbar-brand { display: flex; align-items: center; }
+.navbar-brand img { height: 32px; width: auto; display: block; }
+
+/* Bouton hamburger — visible sur mobile/tablette */
+.menu-toggle {
+  width: 32px; height: 32px; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 0;
+  z-index: calc(var(--z-modal) + 1); position: relative;
 }
+.menu-toggle span {
+  width: 22px; height: 1.5px; background: var(--gold);
+  transition: transform var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+.menu-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Volet de navigation — hors écran par défaut, glisse depuis la droite */
+.navbar ul {
+  list-style: none;
+  position: fixed; top: 0; right: 0; height: 100vh; width: 78%; max-width: 320px;
+  background: var(--black); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;
+  gap: var(--sp-1); padding: calc(var(--nav-height) + var(--sp-8)) var(--sp-6);
+  transform: translateX(100%); transition: transform var(--t-base) var(--ease);
+  z-index: var(--z-modal);
+}
+.navbar ul.open { transform: translateX(0); }
+.navbar ul li { width: 100%; }
 .navbar ul li a {
-  font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase;
+  font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
   color: var(--text-dim); font-weight: 600;
-  padding: var(--sp-3) var(--sp-1); display: block;
-  border-bottom: 1px solid transparent;
+  padding: var(--sp-3) 0; display: block; width: 100%;
+  border-bottom: 1px solid var(--border-soft);
   transition: color var(--t-fast) var(--ease);
 }
 .navbar ul li a:hover,
 .navbar ul li a.active { color: var(--gold); }
-.navbar ul li a.active { border-bottom-color: var(--gold); }
+
+/* Fond sombre derrière le volet ouvert */
+.nav-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  opacity: 0; pointer-events: none; transition: opacity var(--t-base) var(--ease);
+  z-index: calc(var(--z-modal) - 1);
+}
+.nav-overlay.visible { opacity: 1; pointer-events: auto; }
+
+/* Desktop : nav horizontale classique, hamburger masqué */
+@media (min-width: 1200px) {
+  .menu-toggle { display: none; }
+  .navbar ul {
+    position: static; height: auto; width: auto; max-width: none;
+    background: none; border: none; flex-direction: row;
+    align-items: center; justify-content: flex-end; gap: var(--sp-6);
+    padding: 0; transform: none;
+  }
+  .navbar ul li { width: auto; }
+  .navbar ul li a { padding: var(--sp-2) 0; border: none; font-size: 12px; letter-spacing: 2px; }
+  .nav-overlay { display: none; }
+}
 
 /* ---------- 7. BOUTONS ---------- */
 /* Bouton primaire : action de conversion (bilan offert, prise de RDV)
@@ -434,19 +480,21 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 .tl-year { font-family: var(--font-display); font-size: 34px; font-weight: 700; color: var(--gold); line-height: 1; }
 .tl-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin: var(--sp-1) 0 var(--sp-2); }
 
-/* Ticker horizontal (lieux, avis, logos) */
+/* Ticker horizontal (lieux, avis, logos) — défilement automatique
+   piloté en JS (HS.initTouchTicker), interrompu et pris en main
+   dès que l'utilisateur touche/glisse, comme un vrai carrousel. */
 .ticker-wrap {
-  overflow: hidden; border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2);
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2);
   background: var(--surface); padding: var(--sp-4) 0; position: relative;
 }
+.ticker-wrap::-webkit-scrollbar { display: none; }
 .ticker-wrap::before, .ticker-wrap::after {
   content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
 }
 .ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--black), transparent); }
 .ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--black), transparent); }
-.ticker-track { display: flex; gap: var(--sp-5); width: max-content; animation: ticker 14s linear infinite; }
-.ticker-track:hover { animation-play-state: paused; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.ticker-track { display: flex; gap: var(--sp-5); width: max-content; }
 
 /* Grille responsive générique (2 col dès tablette) */
 .grid-2 { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }

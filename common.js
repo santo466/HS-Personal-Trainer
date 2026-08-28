@@ -91,9 +91,85 @@
     });
   }
 
+  /* ---------- 6. MENU HAMBURGER (volet de navigation mobile) ----------
+     Toutes les pages ont la même structure : .menu-toggle + .navbar ul
+     + .nav-overlay. S'initialise seul, rien à appeler depuis les pages. */
+  function initMobileMenu() {
+    var toggle = document.getElementById('menuToggle');
+    var list = document.querySelector('.navbar ul');
+    var overlay = document.getElementById('navOverlay');
+    if (!toggle || !list || !overlay) return;
+
+    function openMenu() {
+      list.classList.add('open');
+      overlay.classList.add('visible');
+      toggle.classList.add('active');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      list.classList.remove('open');
+      overlay.classList.remove('visible');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function () {
+      if (list.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    list.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+  }
+
+  /* ---------- 7. TICKER TACTILE ----------
+     Défilement automatique doux, interrompu dès que l'utilisateur
+     touche/glisse — il reprend la main comme un vrai carrousel natif.
+     wrapSelector : l'élément avec overflow-x (ex: '.ticker-wrap').
+     Le premier enfant direct est considéré comme la piste à faire défiler. */
+  function initTouchTicker(wrapSelector) {
+    document.querySelectorAll(wrapSelector).forEach(function (wrap) {
+      var track = wrap.firstElementChild;
+      if (!track) return;
+
+      var speed = 1.4;      // px par tick — vitesse du défilement auto
+      var paused = false;
+      var resumeTimer = null;
+
+      var intervalId = setInterval(function () {
+        if (!paused) {
+          wrap.scrollLeft += speed;
+        }
+        // Le rebouclage s'applique dans tous les cas, même pendant un
+        // glissement tactile, pour ne jamais laisser l'utilisateur
+        // atteindre le bout réel de la piste dupliquée.
+        var halfWidth = track.scrollWidth / 2;
+        if (wrap.scrollLeft >= halfWidth) {
+          wrap.scrollLeft -= halfWidth;
+        }
+      }, 20);
+
+      function pause() {
+        paused = true;
+        if (resumeTimer) clearTimeout(resumeTimer);
+      }
+      function scheduleResume() {
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () { paused = false; }, 1800);
+      }
+
+      wrap.addEventListener('touchstart', pause, { passive: true });
+      wrap.addEventListener('touchend', scheduleResume);
+      wrap.addEventListener('mousedown', pause);
+      window.addEventListener('mouseup', scheduleResume);
+    });
+  }
+
   /* ---------- INIT AUTOMATIQUE ---------- */
   document.addEventListener('DOMContentLoaded', function () {
     initScrollReveal();
+    initMobileMenu();
+    initTouchTicker('.ticker-wrap');
+    initTouchTicker('.benefit-strip');
   });
 
   /* Expose l'API commune sous un seul objet global : HS */

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostic technique — HS Personal Trainer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="design-system.css">
+<script src="common.js" defer></script>
+<style>
+  .diag-wrap { padding: calc(var(--nav-height) + var(--sp-8)) var(--sp-6) var(--sp-10); max-width: var(--content-width); margin: 0 auto; }
+  .diag-wrap h1 { font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: var(--sp-2); }
+  .diag-wrap .subtitle { font-size: 12px; color: var(--text-dim); margin-bottom: var(--sp-8); }
+
+  .diag-item {
+    display: flex; align-items: flex-start; gap: var(--sp-3);
+    padding: var(--sp-4); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    margin-bottom: var(--sp-3); background: rgba(255,255,255,0.02);
+  }
+  .diag-icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; margin-top: 1px; }
+  .diag-icon--pending { background: rgba(255,255,255,0.08); color: var(--text-dim); }
+  .diag-icon--ok { background: rgba(50,200,100,0.15); color: #8FE3AC; }
+  .diag-icon--fail { background: rgba(220,80,80,0.15); color: #E39C9C; }
+  .diag-body { flex: 1; }
+  .diag-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .diag-detail { font-size: 11px; color: var(--text-dim); line-height: 1.5; }
+  .diag-detail code { color: var(--gold); word-break: break-all; }
+
+  .diag-summary {
+    text-align: center; padding: var(--sp-5); margin-bottom: var(--sp-6);
+    border: 1px solid var(--border-active); border-radius: var(--radius-sm); background: rgba(201,168,76,0.06);
+  }
+  .diag-summary__count { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--gold); }
+
+  .diag-links { margin-top: var(--sp-8); }
+  .diag-links h2 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); margin-bottom: var(--sp-3); }
+  .diag-links a { display: block; font-size: 12px; color: var(--text-dim); padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
+  .diag-links a:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul>
+    <li><a href="index.html" data-page="accueil">Accueil</a></li>
+    <li><a href="methode.html" data-page="methode">Méthode</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="bibliotheque-exercices.html" data-page="exercices">Exercices</a></li>
+    <li><a href="boutique.html" data-page="boutique">Boutique</a></li>
+    <li><a href="reservation.html" data-page="reservation">Réserver</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<div class="diag-wrap">
+  <h1>Diagnostic technique</h1>
+  <p class="subtitle">Page interne — vérifie automatiquement chaque brique du site. Recharge la page pour relancer tous les tests.</p>
+
+  <div class="diag-summary">
+    <div class="diag-summary__count" id="diagCount">0 / 0</div>
+    <div class="diag-detail">tests réussis</div>
+  </div>
+
+  <div id="diagList"></div>
+
+  <div class="diag-links">
+    <h2>Accès rapide aux pages</h2>
+    <a href="index.html">Accueil</a>
+    <a href="methode.html">Méthode</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="bibliotheque-exercices.html">Bibliothèque d'exercices</a>
+    <a href="boutique.html">Boutique</a>
+    <a href="reservation.html">Réservation</a>
+    <a href="contact.html">Contact</a>
+    <a href="mon-bilan.html">Mon Déclic</a>
+    <a href="merci.html">Merci (page de confirmation)</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  HS.setActiveNavPage('accueil');
+
+  var SUPABASE_URL = 'https://xtehbaogitldkhguzmcw.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_8lM-dgrsk9nKjmpPmpskoA_lECBNmtU';
+  var GOOGLE_BUSY_URL = 'https://xtehbaogitldkhguzmcw.supabase.co/functions/v1/quick-function';
+
+  var list = document.getElementById('diagList');
+  var countEl = document.getElementById('diagCount');
+  var total = 0, passed = 0;
+
+  function addItem(title) {
+    total++;
+    var el = document.createElement('div');
+    el.className = 'diag-item';
+    el.innerHTML =
+      '<div class="diag-icon diag-icon--pending">…</div>' +
+      '<div class="diag-body"><div class="diag-title">' + title + '</div><div class="diag-detail" data-detail>Test en cours...</div></div>';
+    list.appendChild(el);
+    countEl.textContent = passed + ' / ' + total;
+    return el;
+  }
+
+  function setResult(el, ok, detailHtml) {
+    var icon = el.querySelector('.diag-icon');
+    icon.className = 'diag-icon ' + (ok ? 'diag-icon--ok' : 'diag-icon--fail');
+    icon.textContent = ok ? '✓' : '✕';
+    el.querySelector('[data-detail]').innerHTML = detailHtml;
+    if (ok) passed++;
+    countEl.textContent = passed + ' / ' + total;
+  }
+
+  // 1. Design System (CSS) chargé
+  var t1 = addItem('Design System (couleurs, styles)');
+  var bg = getComputedStyle(document.body).backgroundColor;
+  var cssOk = bg === 'rgb(8, 8, 8)';
+  setResult(t1, cssOk, cssOk ? 'Fond noir détecté (<code>' + bg + '</code>) — le CSS charge correctement.' : 'Fond détecté : <code>' + bg + '</code> — attendu rgb(8, 8, 8). Le fichier design-system.css ne charge peut-être pas.');
+
+  // 2. common.js chargé
+  var t2 = addItem('Script commun (menu, accordéons, ticker)');
+  var jsOk = typeof HS !== 'undefined' && typeof HS.toggleAccordion === 'function';
+  setResult(t2, jsOk, jsOk ? 'HS.* est bien disponible.' : 'HS.* est introuvable — common.js ne charge pas.');
+
+  // 3. Logo présent
+  var t3 = addItem('Logo (images/logo.png)');
+  var logoImg = new Image();
+  logoImg.onload = function () { setResult(t3, true, 'Image chargée (' + logoImg.naturalWidth + '×' + logoImg.naturalHeight + 'px).'); };
+  logoImg.onerror = function () { setResult(t3, false, 'Le fichier images/logo.png est introuvable ou inaccessible.'); };
+  logoImg.src = 'images/logo.png';
+
+  // 4. Connexion Supabase (lecture de la table publique des réservations)
+  var t4 = addItem('Connexion Supabase (base de réservations)');
+  if (typeof supabase === 'undefined') {
+    setResult(t4, false, 'La librairie Supabase (CDN) n\'a pas chargé.');
+  } else {
+    var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    sb.from('reservations_public').select('slot_date').limit(1).then(function (res) {
+      if (res.error) {
+        setResult(t4, false, 'Erreur Supabase : <code>' + res.error.message + '</code>');
+      } else {
+        setResult(t4, true, 'Connexion réussie. La table "reservations" et sa vue publique existent et répondent.');
+      }
+    });
+  }
+
+  // 5. Fonction Google Agenda (Edge Function)
+  var t5 = addItem('Fonction Google Agenda (créneaux occupés)');
+  fetch(GOOGLE_BUSY_URL, {
+    headers: { 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'apikey': SUPABASE_ANON_KEY }
+  })
+    .then(function (r) {
+      if (!r.ok) throw new Error('Statut HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      if (data.events) {
+        setResult(t5, true, data.events.length + ' événement(s) détecté(s) sur tes 3 agendas dans la fenêtre de réservation.');
+      } else if (data.error) {
+        setResult(t5, false, 'La fonction répond mais renvoie une erreur : <code>' + data.error + '</code>');
+      } else {
+        setResult(t5, false, 'Réponse inattendue de la fonction.');
+      }
+    })
+    .catch(function (err) {
+      setResult(t5, false, 'La fonction ne répond pas : <code>' + err.message + '</code>');
+    });
+
+  // 6. Favicon présent
+  var t6 = addItem('Favicon');
+  var favImg = new Image();
+  favImg.onload = function () { setResult(t6, true, 'images/favicon-32.png chargé correctement.'); };
+  favImg.onerror = function () { setResult(t6, false, 'images/favicon-32.png introuvable.'); };
+  favImg.src = 'images/favicon-32.png';
+});
+</script>
+
+</body>
+</html>
