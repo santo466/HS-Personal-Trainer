@@ -187,7 +187,11 @@ textarea:focus-visible {
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: var(--z-nav);
+  /* Plus haut que .nav-overlay : le backdrop-filter ci-dessous crée
+     une bulle d'empilement qui piège le menu déroulant (enfant de
+     .navbar) à l'intérieur — s'il n'est pas au-dessus de l'overlay,
+     ce dernier intercepte les clics destinés aux liens. */
+  z-index: calc(var(--z-modal) + 2);
   background: rgba(8,8,8,0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
