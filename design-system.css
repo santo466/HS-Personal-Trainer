@@ -228,7 +228,7 @@ textarea:focus-visible {
 .navbar ul li { width: 100%; }
 .navbar ul li a {
   font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--text-dim); font-weight: 600;
+  color: var(--text); font-weight: 600;
   padding: var(--sp-3) 0; display: block; width: 100%;
   border-bottom: 1px solid var(--border-soft);
   transition: color var(--t-fast) var(--ease);

@@ -116,9 +116,10 @@
       if (list.classList.contains('open')) closeMenu(); else openMenu();
     });
     overlay.addEventListener('click', closeMenu);
-    list.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', closeMenu);
-    });
+    // Pas de fermeture manuelle au clic sur un lien : la navigation vers
+    // la page suivante recharge le document et réinitialise le menu
+    // fermé toute seule. Fermer manuellement ici interrompait parfois
+    // la navigation sur mobile.
   }
 
   /* ---------- 7. TICKER TACTILE ----------
