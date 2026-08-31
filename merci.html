@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>(function(){try{var t=localStorage.getItem('hs-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');var s=localStorage.getItem('hs-fontsize');if(s&&s!=='normal')document.documentElement.setAttribute('data-fontsize',s);}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merci — HS Personal Trainer</title>
@@ -20,9 +21,14 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="navbar-actions">
+    <button class="settings-toggle" id="settingsToggle" aria-label="Paramètres">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+    </button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
   <ul>
     <li><a href="index.html" data-page="accueil">Accueil</a></li>
     <li><a href="methode.html" data-page="methode">Méthode</a></li>
@@ -34,6 +40,34 @@
   </ul>
 </nav>
 <div class="nav-overlay" id="navOverlay"></div>
+<div class="settings-panel" id="settingsPanel">
+  <button class="settings-panel__close" id="settingsClose" aria-label="Fermer">✕</button>
+  <h3>Paramètres</h3>
+  <div class="settings-section">
+    <p class="settings-label">Apparence</p>
+    <div class="theme-switch">
+      <button class="theme-switch__option" data-theme-choice="dark">Sombre</button>
+      <button class="theme-switch__option" data-theme-choice="light">Clair</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="theme-switch">
+      <button class="theme-switch__option" data-fontsize-choice="small">Petit</button>
+      <button class="theme-switch__option" data-fontsize-choice="normal">Normal</button>
+      <button class="theme-switch__option" data-fontsize-choice="large">Grand</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Informations légales</p>
+    <div class="settings-legal">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">Conditions générales de vente</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+    </div>
+  </div>
+</div>
+<div class="settings-overlay" id="settingsOverlay"></div>
 
 <section class="merci-wrap reveal">
   <div class="form-success-icon" style="margin-bottom:16px">✦</div>
@@ -44,7 +78,7 @@
   <div class="divider"></div>
 
   <p class="body-text" style="margin-bottom:16px">Tu peux, si tu le souhaites, déjà préparer notre rendez-vous :</p>
-  <a href="#" id="bilanLink" class="btn-primary" style="max-width:320px;margin:0 auto">Compléter mon Déclic</a>
+  <a href="#" id="bilanLink" class="btn-primary" style="max-width:320px;margin:0 auto">Compléter ton Déclic</a>
 </section>
 
 <footer class="footer">
@@ -64,6 +98,7 @@
   </nav>
   <div class="footer-legal">
     <a href="mentions-legales.html">Mentions légales</a>
+    <a href="cgv.html">CGV</a>
     <a href="politique-confidentialite.html">Confidentialité</a>
   </div>
   <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>

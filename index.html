@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>(function(){try{var t=localStorage.getItem('hs-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');var s=localStorage.getItem('hs-fontsize');if(s&&s!=='normal')document.documentElement.setAttribute('data-fontsize',s);}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HS Personal Trainer — Coach sportif premium à Marignane, Aix-en-Provence</title>
@@ -18,13 +19,13 @@
     align-items: center; justify-content: flex-end; position: relative;
     text-align: center; overflow: hidden; padding-bottom: var(--sp-12);
   }
-  .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(160deg, #1c1c1c, var(--black)); }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(160deg, #1c1c1c, #080808); }
   .hero-bg::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to bottom, rgba(8,8,8,0.05) 0%, rgba(8,8,8,0.15) 25%, rgba(8,8,8,0.75) 60%, rgba(8,8,8,1) 100%);
   }
   .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 var(--sp-6); }
-  .hero-sub { font-size: 11px; letter-spacing: 6px; text-transform: uppercase; color: var(--text-dim); font-weight: 300; margin-top: var(--sp-3); }
+  .hero-sub { font-size: 11px; letter-spacing: 6px; text-transform: uppercase; color: rgba(240,234,214,0.62); font-weight: 300; margin-top: var(--sp-3); }
   .hero-slogan {
     font-family: var(--font-display); font-style: italic; font-weight: 600;
     font-size: clamp(22px,5.5vw,32px); color: var(--gold); margin-top: var(--sp-4); line-height: 1.3;
@@ -66,9 +67,14 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="HS Personal Trainer"></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="navbar-actions">
+    <button class="settings-toggle" id="settingsToggle" aria-label="Paramètres">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+    </button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
   <ul>
     <li><a href="index.html" data-page="accueil">Accueil</a></li>
     <li><a href="methode.html" data-page="methode">Méthode</a></li>
@@ -80,6 +86,34 @@
   </ul>
 </nav>
 <div class="nav-overlay" id="navOverlay"></div>
+<div class="settings-panel" id="settingsPanel">
+  <button class="settings-panel__close" id="settingsClose" aria-label="Fermer">✕</button>
+  <h3>Paramètres</h3>
+  <div class="settings-section">
+    <p class="settings-label">Apparence</p>
+    <div class="theme-switch">
+      <button class="theme-switch__option" data-theme-choice="dark">Sombre</button>
+      <button class="theme-switch__option" data-theme-choice="light">Clair</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="theme-switch">
+      <button class="theme-switch__option" data-fontsize-choice="small">Petit</button>
+      <button class="theme-switch__option" data-fontsize-choice="normal">Normal</button>
+      <button class="theme-switch__option" data-fontsize-choice="large">Grand</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Informations légales</p>
+    <div class="settings-legal">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">Conditions générales de vente</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+    </div>
+  </div>
+</div>
+<div class="settings-overlay" id="settingsOverlay"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -92,7 +126,7 @@
     <h1 class="hero-slogan">Plus fort chaque jour.</h1>
     <p class="hero-sub">Transformation · Performance · Résultats</p>
     <div class="divider"></div>
-    <a href="contact.html" class="btn-primary" style="max-width:280px">Réserver mon Déclic</a>
+    <a href="contact.html" class="btn-primary" style="max-width:280px">Réserver ton Déclic</a>
     <div class="icon-row" style="display:flex;gap:12px;margin-top:20px">
       <a class="btn-icon" href="https://www.instagram.com/helioosanto?igsh=MW5tNTdtajlxYWZvYg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram HS Personal Trainer">
         <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#C9A84C" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7.001a4.999 4.999 0 100 9.998 4.999 4.999 0 000-9.998z"/></svg>
@@ -277,7 +311,7 @@
   <div class="divider"></div>
   <h2 class="h2" style="margin-bottom:8px">Plus fort chaque jour commence aujourd'hui.</h2>
   <p class="body-text" style="margin-bottom:24px">Ton Déclic est offert et sans engagement.</p>
-  <a href="contact.html" class="btn-primary" style="max-width:320px;margin:0 auto">Réserver mon Déclic</a>
+  <a href="contact.html" class="btn-primary" style="max-width:320px;margin:0 auto">Réserver ton Déclic</a>
 </section>
 
 <footer class="footer">
@@ -302,6 +336,7 @@
   </div>
   <div class="footer-legal">
     <a href="mentions-legales.html">Mentions légales</a>
+    <a href="cgv.html">CGV</a>
     <a href="politique-confidentialite.html">Confidentialité</a>
   </div>
   <div class="footer-copy">© 2025 HS Personal Trainer · Tous droits réservés</div>

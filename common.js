@@ -122,6 +122,66 @@
     // la navigation sur mobile.
   }
 
+  /* ---------- 6bis. PANNEAU DE PARAMÈTRES ----------
+     Structure attendue sur chaque page : #settingsToggle, #settingsPanel,
+     #settingsClose, #settingsOverlay, et un groupe .theme-switch avec des
+     boutons [data-theme-choice="dark"|"light"]. Le thème choisi est
+     mémorisé (localStorage) et appliqué immédiatement au prochain
+     chargement via le petit script placé en tout début de <head>. */
+  function initSettingsPanel() {
+    var toggle = document.getElementById('settingsToggle');
+    var panel = document.getElementById('settingsPanel');
+    var close = document.getElementById('settingsClose');
+    var overlay = document.getElementById('settingsOverlay');
+    if (!toggle || !panel || !overlay) return;
+
+    function openPanel() {
+      panel.classList.add('open');
+      overlay.classList.add('visible');
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      overlay.classList.remove('visible');
+    }
+    toggle.addEventListener('click', openPanel);
+    if (close) close.addEventListener('click', closePanel);
+    overlay.addEventListener('click', closePanel);
+
+    // Thème
+    var options = panel.querySelectorAll('[data-theme-choice]');
+    var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    options.forEach(function (opt) {
+      opt.classList.toggle('active', opt.dataset.themeChoice === current);
+      opt.addEventListener('click', function () {
+        var choice = opt.dataset.themeChoice;
+        if (choice === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        try { localStorage.setItem('hs-theme', choice); } catch (e) { /* navigation privée : tant pis, non bloquant */ }
+        options.forEach(function (o) { o.classList.toggle('active', o === opt); });
+      });
+    });
+
+    // Taille du texte
+    var sizeOptions = panel.querySelectorAll('[data-fontsize-choice]');
+    var currentSize = document.documentElement.getAttribute('data-fontsize') || 'normal';
+    sizeOptions.forEach(function (opt) {
+      opt.classList.toggle('active', opt.dataset.fontsizeChoice === currentSize);
+      opt.addEventListener('click', function () {
+        var choice = opt.dataset.fontsizeChoice;
+        if (choice === 'normal') {
+          document.documentElement.removeAttribute('data-fontsize');
+        } else {
+          document.documentElement.setAttribute('data-fontsize', choice);
+        }
+        try { localStorage.setItem('hs-fontsize', choice); } catch (e) { /* navigation privée : non bloquant */ }
+        sizeOptions.forEach(function (o) { o.classList.toggle('active', o === opt); });
+      });
+    });
+  }
+
   /* ---------- 7. TICKER TACTILE ----------
      Défilement automatique doux, interrompu dès que l'utilisateur
      touche/glisse — il reprend la main comme un vrai carrousel natif.
@@ -169,6 +229,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     initScrollReveal();
     initMobileMenu();
+    initSettingsPanel();
     initTouchTicker('.ticker-wrap');
     initTouchTicker('.benefit-strip');
   });

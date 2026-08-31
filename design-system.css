@@ -28,6 +28,10 @@
   --text-mute: rgba(240,234,214,0.65);
   --white:     #ffffff;
 
+  /* Texte posé sur un fond doré (boutons, badges) — reste toujours
+     sombre, quel que soit le thème actif, pour garder le contraste. */
+  --on-gold: #080808;
+
   /* Statuts (badges disponibilité, succès formulaire, etc.) */
   --status-ok:      #32C864;
   --status-info:    #64A0DC;
@@ -80,6 +84,26 @@
   --nav-height: 56px;
   --z-nav: 999;
   --z-modal: 1000;
+}
+
+/* ---------- 2bis. THÈME CLAIR ----------
+   Activé en posant data-theme="light" sur <html> (géré par
+   HS.initSettingsPanel dans common.js). L'accent doré (--gold) et
+   --on-gold ne changent jamais : seule la base sombre/claire s'inverse. */
+[data-theme="light"] {
+  --black:  #FFFFFF;
+  --dark:   #F5F3EE;
+  --card-bg: #FBFAF7;
+  --surface: #F0EDE5;
+
+  --border:        rgba(180,140,50,0.25);
+  --border-active: rgba(180,140,50,0.55);
+  --border-soft:   rgba(180,140,50,0.14);
+
+  --text:      #1A1A1A;
+  --text-dim:  rgba(26,26,26,0.62);
+  --text-mute: rgba(26,26,26,0.68);
+  --white:     #101010;
 }
 
 /* ---------- 3. RESET ---------- */
@@ -248,6 +272,72 @@ textarea:focus-visible {
 }
 .nav-overlay.visible { opacity: 1; pointer-events: auto; }
 
+/* ---------- PANNEAU DE PARAMÈTRES ---------- */
+.navbar-actions { display: flex; align-items: center; gap: var(--sp-3); }
+
+.settings-toggle {
+  width: 26px; height: 26px; background: none; border: none; cursor: pointer;
+  padding: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--gold); z-index: calc(var(--z-modal) + 2); position: relative;
+}
+.settings-toggle svg { width: 20px; height: 20px; }
+
+.settings-panel {
+  position: fixed; top: 0; left: 0; height: 100vh; width: 82%; max-width: 340px;
+  background: var(--black); border-right: 1px solid var(--border);
+  padding: calc(var(--nav-height) + var(--sp-6)) var(--sp-6) var(--sp-8);
+  transform: translateX(-100%); transition: transform var(--t-base) var(--ease);
+  z-index: calc(var(--z-modal) + 3); overflow-y: auto;
+}
+.settings-panel.open { transform: translateX(0); }
+.settings-panel__close {
+  position: absolute; top: var(--sp-5); right: var(--sp-5);
+  width: 32px; height: 32px; background: none; border: 1px solid var(--border); border-radius: 50%;
+  color: var(--gold); font-size: 16px; cursor: pointer;
+}
+.settings-panel h3 {
+  font-family: var(--font-display); font-size: 20px; color: var(--gold);
+  margin-bottom: var(--sp-8);
+}
+.settings-section { margin-bottom: var(--sp-8); }
+.settings-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: var(--sp-3);
+}
+.theme-switch { display: flex; border: 1px solid var(--border); border-radius: var(--radius-pill); overflow: hidden; }
+.theme-switch__option {
+  flex: 1; padding: var(--sp-3) var(--sp-4); background: none; border: none;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
+  color: var(--text-dim); cursor: pointer; transition: all var(--t-fast) var(--ease);
+}
+.theme-switch__option.active { background: var(--gold); color: var(--on-gold); }
+
+.settings-legal { display: flex; flex-direction: column; gap: var(--sp-1); }
+.settings-legal a {
+  font-size: 12px; color: var(--text-dim); padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.settings-legal a:hover { color: var(--gold); }
+
+/* Taille du texte — s'applique à toute la mise en page (texte + espacements
+   proportionnellement), mémorisée comme le thème. Zoom est bien supporté
+   sur Safari iOS, c'est le moyen le plus fiable de tout faire suivre sans
+   réécrire chaque taille de police du Design System en unité relative. */
+html[data-fontsize="small"] body { zoom: 0.9; }
+html[data-fontsize="large"] body { zoom: 1.15; }
+
+.settings-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  opacity: 0; pointer-events: none; transition: opacity var(--t-base) var(--ease);
+  z-index: calc(var(--z-modal) + 2);
+}
+.settings-overlay.visible { opacity: 1; pointer-events: auto; }
+
+/* Desktop : rester discret, à côté du hamburger réel */
+@media (min-width: 1200px) {
+  .settings-panel { max-width: 360px; }
+}
+
 /* Desktop : nav horizontale classique, hamburger masqué */
 @media (min-width: 1200px) {
   .menu-toggle { display: none; }
@@ -273,7 +363,7 @@ textarea:focus-visible {
   padding: var(--sp-4);
   background: var(--gold);
   border: none; border-radius: var(--radius-sm);
-  color: var(--black);
+  color: var(--on-gold);
   font-size: var(--fs-body-sm); font-weight: 700;
   letter-spacing: 4px; text-transform: uppercase;
   text-align: center;
@@ -391,7 +481,7 @@ textarea:focus-visible {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
   padding: 2px var(--sp-2); border-radius: var(--radius-sm);
 }
-.badge--gold { background: var(--gold); color: var(--black); }
+.badge--gold { background: var(--gold); color: var(--on-gold); }
 .badge--outline {
   border: 1px solid rgba(201,168,76,0.4); border-radius: var(--radius-pill);
   color: var(--gold); background: transparent; font-weight: 600; padding: 3px var(--sp-3);
@@ -496,8 +586,8 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 .ticker-wrap::before, .ticker-wrap::after {
   content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
 }
-.ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--black), transparent); }
-.ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--black), transparent); }
+.ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--surface), transparent); }
+.ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--surface), transparent); }
 .ticker-track { display: flex; gap: var(--sp-5); width: max-content; }
 
 /* Grille responsive générique (2 col dès tablette) */
