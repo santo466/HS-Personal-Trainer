@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('hs-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');var s=localStorage.getItem('hs-fontsize');if(s&&s!=='normal')document.documentElement.setAttribute('data-fontsize',s);}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Réserve ton Déclic — HS Personal Trainer</title>
-<meta name="description" content="Choisis directement un créneau pour ton Déclic avec Hélio Santonocito, coach sportif certifié à Marignane.">
+<title>Réserve ta séance Small Group — HS Personal Trainer</title>
+<meta name="description" content="Réserve ta place aux séances Small Group HS Personal Trainer, à Basic-Fit Marignane ou Studio Performance Saint-Victoret.">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
@@ -19,70 +19,29 @@
 
   .resa-wrap { max-width: var(--content-width-lg); margin: 0 auto; padding: 0 var(--sp-6) var(--sp-10); }
 
-  /* Sélecteur de lieu */
-  .venue-picker { display: flex; flex-direction: column; gap: 8px; margin-bottom: var(--sp-6); }
-  @media (min-width: 640px) { .venue-picker { flex-direction: row; } }
-  .venue-pill {
-    flex: 1; padding: var(--sp-4); text-align: left;
-    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    cursor: pointer; transition: all var(--t-fast) var(--ease); user-select: none;
-  }
-  .venue-pill.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
-  .venue-pill__name { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
-  .venue-pill.active .venue-pill__name { color: var(--gold); }
-  .venue-pill__loc { font-size: 11px; color: var(--text-dim); }
-
-  .resa-step-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: var(--sp-2); }
-
-  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-4); }
-  .cal-header__label { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); text-transform: capitalize; }
-  .cal-nav-btn {
-    width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border);
-    background: rgba(255,255,255,0.03); color: var(--gold); display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 16px; user-select: none;
-  }
-  .cal-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
-
-  .cal-dow-row { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: 6px; }
-  .cal-dow { text-align: center; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); }
-
-  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: var(--sp-5); }
-  .cal-cell {
-    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-    border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
-    border: 1px solid transparent; color: var(--text-dim); transition: all var(--t-fast) var(--ease);
-  }
-  .cal-cell--empty { visibility: hidden; }
-  .cal-cell--muted { background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.15); }
-  .cal-cell--available { background: rgba(50,200,100,0.12); border-color: rgba(50,200,100,0.4); color: #8FE3AC; cursor: pointer; }
-  .cal-cell--available:hover { border-color: rgba(50,200,100,0.8); }
-  .cal-cell--full { background: rgba(220,80,80,0.10); border-color: rgba(220,80,80,0.3); color: rgba(220,140,140,0.75); }
-  .cal-cell--selected { border-color: var(--gold) !important; background: rgba(201,168,76,0.2) !important; color: var(--gold) !important; }
-
-  .cal-legend { display: flex; gap: var(--sp-4); justify-content: center; margin-bottom: var(--sp-6); flex-wrap: wrap; }
-  .cal-legend__item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-dim); }
-  .cal-legend__dot { width: 9px; height: 9px; border-radius: 2px; }
-
-  .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: var(--sp-6); }
-  @media (min-width: 640px) { .slot-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (min-width: 1200px) { .slot-grid { grid-template-columns: repeat(6, 1fr); } }
-  .slot-pill {
-    padding: var(--sp-3) 4px; text-align: center; font-size: 12px; font-weight: 600;
-    background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    color: var(--text); cursor: pointer; transition: all var(--t-fast) var(--ease);
-  }
-  .slot-pill:hover { border-color: var(--border-active); }
-  .slot-pill.taken { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; pointer-events: none; }
-  .slot-pill.selected { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
-
   .resa-status { text-align: center; padding: var(--sp-8) var(--sp-6); color: var(--text-dim); font-size: 12px; }
 
-  .resa-form-wrap { max-width: var(--content-width); margin: 0 auto; }
+  .session-list { display: flex; flex-direction: column; gap: 10px; max-width: var(--content-width); margin: 0 auto; }
+  .session-card {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+    padding: var(--sp-4); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.02); cursor: pointer; transition: all var(--t-fast) var(--ease);
+  }
+  .session-card:hover { border-color: var(--border-active); }
+  .session-card.full { opacity: 0.45; cursor: not-allowed; }
+  .session-card__date { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--gold); line-height: 1; min-width: 46px; text-align: center; }
+  .session-card__dow { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); margin-top: 2px; }
+  .session-card__info { flex: 1; }
+  .session-card__venue { font-size: 13px; font-weight: 700; color: var(--text); }
+  .session-card__meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .session-card__spots { font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+  .session-card__spots.ok { color: #8FE3AC; }
+  .session-card__spots.low { color: var(--gold); }
+  .session-card__spots.full { color: #E39C9C; }
+
+  .resa-form-wrap { max-width: var(--content-width); margin: var(--sp-8) auto 0; display: none; }
   .resa-recap { background: rgba(201,168,76,0.08); border: 1px solid var(--border-active); border-radius: var(--radius-sm); padding: var(--sp-4); margin-bottom: var(--sp-5); text-align: center; }
   .resa-recap strong { color: var(--gold); }
-
-  .resa-fallback { text-align: center; padding: var(--sp-10) var(--sp-6); }
-  .resa-fallback p { margin-bottom: var(--sp-5); }
 </style>
 </head>
 <body>
@@ -108,6 +67,7 @@
   </ul>
 </nav>
 <div class="nav-overlay" id="navOverlay"></div>
+
 <div class="settings-panel" id="settingsPanel">
   <button class="settings-panel__close" id="settingsClose" aria-label="Fermer">✕</button>
   <h3>Paramètres</h3>
@@ -138,95 +98,53 @@
 <div class="settings-overlay" id="settingsOverlay"></div>
 
 <header class="resa-intro">
-  <p class="eyebrow reveal">Ton Déclic offert</p>
-  <h1 class="h1 reveal delay-1">Choisis ton créneau</h1>
-  <p class="body-text reveal delay-2">Lundi à vendredi, 9h30 – 16h. Confirmation immédiate.</p>
+  <p class="eyebrow reveal">Small Group</p>
+  <h1 class="h1 reveal delay-1">Réserve ta séance</h1>
+  <p class="body-text reveal delay-2">Cross-training en petit groupe. Choisis ta séance parmi les prochaines disponibles.</p>
 </header>
 
 <div class="resa-wrap reveal" id="resaWrap">
 
-  <p class="resa-step-label">1. Choisis ton jour</p>
-  <div class="cal-header">
-    <div class="cal-nav-btn" id="calPrev">‹</div>
-    <div class="cal-header__label" id="calLabel"></div>
-    <div class="cal-nav-btn" id="calNext">›</div>
-  </div>
-  <div class="cal-dow-row">
-    <div class="cal-dow">L</div><div class="cal-dow">M</div><div class="cal-dow">M</div>
-    <div class="cal-dow">J</div><div class="cal-dow">V</div><div class="cal-dow">S</div><div class="cal-dow">D</div>
-  </div>
-  <div class="cal-grid" id="calGrid"></div>
-  <div class="cal-legend">
-    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(50,200,100,0.5)"></div>Disponible</div>
-    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(220,80,80,0.4)"></div>Complet</div>
-    <div class="cal-legend__item"><div class="cal-legend__dot" style="background:rgba(255,255,255,0.08)"></div>Fermé</div>
-  </div>
+  <div id="resaStatus" class="resa-status" style="display:none">Chargement des séances...</div>
+  <div class="session-list" id="sessionList"></div>
 
-  <div id="resaStatus" class="resa-status" style="display:none"></div>
-
-  <div id="resaStep2" style="display:none">
-    <p class="resa-step-label">2. Choisis ton horaire</p>
-    <div class="slot-grid" id="slotGrid"></div>
-  </div>
-
-  <div id="resaStep3" style="display:none">
-    <p class="resa-step-label">3. Choisis ton lieu</p>
-    <div class="venue-picker" id="venuePicker">
-      <div class="venue-pill" data-venue="Studio Performance">
-        <div class="venue-pill__name">Studio Performance</div>
-        <div class="venue-pill__loc">Saint-Victoret</div>
-      </div>
-      <div class="venue-pill" data-venue="Basic-Fit">
-        <div class="venue-pill__name">Basic-Fit</div>
-        <div class="venue-pill__loc">Marignane</div>
-      </div>
-      <div class="venue-pill" data-venue="Summit Training">
-        <div class="venue-pill__name">Summit Training</div>
-        <div class="venue-pill__loc">Bouc-Bel-Air</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="resaStep4" style="display:none">
-    <p class="resa-step-label">4. Tes coordonnées</p>
-    <div class="resa-form-wrap" id="resaFormWrap">
-      <div class="resa-recap" id="resaRecap"></div>
-      <form id="resaForm" class="contact-form">
-        <div class="form-row">
-          <div class="input-wrap">
-            <label class="input-label" for="rPrenom">Prénom</label>
-            <input class="input-field" type="text" id="rPrenom" name="prenom" autocomplete="given-name" required>
-          </div>
-          <div class="input-wrap">
-            <label class="input-label" for="rNom">Nom</label>
-            <input class="input-field" type="text" id="rNom" name="nom" autocomplete="family-name" required>
-          </div>
+  <div class="resa-form-wrap" id="resaFormWrap">
+    <div class="resa-recap" id="resaRecap"></div>
+    <form id="resaForm" class="contact-form">
+      <div class="form-row">
+        <div class="input-wrap">
+          <label class="input-label" for="rPrenom">Prénom</label>
+          <input class="input-field" type="text" id="rPrenom" name="prenom" autocomplete="given-name" required>
         </div>
         <div class="input-wrap">
-          <label class="input-label" for="rEmail">Email</label>
-          <input class="input-field" type="email" id="rEmail" name="email" autocomplete="email" required>
+          <label class="input-label" for="rNom">Nom</label>
+          <input class="input-field" type="text" id="rNom" name="nom" autocomplete="family-name" required>
         </div>
-        <div class="input-wrap">
-          <label class="input-label" for="rTel">Téléphone</label>
-          <input class="input-field" type="tel" id="rTel" name="telephone" autocomplete="tel" required>
-        </div>
-        <button type="submit" class="btn-primary" id="resaSubmitBtn" style="margin-top:8px">Confirmer ma réservation</button>
-      </form>
-    </div>
+      </div>
+      <div class="input-wrap">
+        <label class="input-label" for="rEmail">Email</label>
+        <input class="input-field" type="email" id="rEmail" name="email" autocomplete="email" required>
+      </div>
+      <div class="input-wrap">
+        <label class="input-label" for="rTel">Téléphone</label>
+        <input class="input-field" type="tel" id="rTel" name="telephone" autocomplete="tel" required>
+      </div>
+      <button type="submit" class="btn-primary" id="resaSubmitBtn" style="margin-top:8px">Confirmer ma place</button>
+    </form>
   </div>
 
-  <div class="resa-form-wrap" id="resaSuccessWrap" style="display:none">
+  <div class="resa-form-wrap" id="resaSuccessWrap">
     <div class="form-success visible">
       <div class="form-success-icon">✦</div>
-      <p class="body-text"><strong style="color:var(--gold)">C'est confirmé !</strong><br>Ton créneau est réservé. Je te recontacte si besoin, sinon on se voit à l'heure prévue.</p>
+      <p class="body-text"><strong style="color:var(--gold)">C'est confirmé !</strong><br>Ta place est réservée pour cette séance. On se voit là-bas.</p>
     </div>
   </div>
 
 </div>
 
-<div class="resa-fallback" id="resaFallback" style="display:none">
-  <p class="body-text">La prise de rendez-vous en ligne arrive très bientôt. En attendant, contacte-moi directement :</p>
-  <a href="contact.html" class="btn-primary" style="max-width:280px;margin:0 auto">Réserver ton Déclic</a>
+<div class="resa-fallback" id="resaFallback" style="display:none; text-align:center; padding: var(--sp-10) var(--sp-6)">
+  <p class="body-text" style="margin-bottom:var(--sp-5)">La réservation en ligne arrive très bientôt. En attendant, contacte-moi directement :</p>
+  <a href="contact.html" class="btn-primary" style="max-width:280px;margin:0 auto">Me contacter</a>
 </div>
 
 <footer class="footer">
@@ -261,303 +179,149 @@
 document.addEventListener('DOMContentLoaded', function () {
   HS.setActiveNavPage('reservation');
 
-  // ⚠️ CONFIGURATION EN ATTENTE : remplace ces deux valeurs par celles de
-  // ton projet Supabase (Project Settings → API). Ce sont des identifiants
-  // publics, faits pour être utilisés côté navigateur — pas des secrets.
   var SUPABASE_URL = 'https://xtehbaogitldkhguzmcw.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_8lM-dgrsk9nKjmpPmpskoA_lECBNmtU';
 
-  if (SUPABASE_URL.indexOf('TON-PROJECT-URL') !== -1) {
-    document.getElementById('resaWrap').style.display = 'none';
-    document.getElementById('resaFallback').style.display = 'block';
-    return;
-  }
-
   if (typeof supabase === 'undefined') {
-    // La librairie externe n'a pas pu charger (réseau, CDN indisponible...)
     document.getElementById('resaWrap').style.display = 'none';
     document.getElementById('resaFallback').style.display = 'block';
     return;
   }
-
   var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  var WORK_DAYS = [1, 2, 3, 4, 5];
-  var START_HOUR = 9, START_MIN = 30;
-  var END_HOUR = 16, END_MIN = 0;
-  var SLOT_DURATION_MIN = 45;
-  var MIN_NOTICE_HOURS = 24;
-  var DAYS_AHEAD = 45;
+  // ---------- Créneaux fixes Small Group ----------
+  // dow : 0=dimanche, 1=lundi, 2=mardi, 3=mercredi, 4=jeudi, 5=vendredi, 6=samedi
+  var SESSIONS = [
+    { lieu: 'Basic-Fit', ville: 'Marignane', dow: 1, time: '11:30', label: '11h30 – 12h30', capacity: 8 },
+    { lieu: 'Basic-Fit', ville: 'Marignane', dow: 1, time: '12:30', label: '12h30 – 13h30', capacity: 8 },
+    { lieu: 'Basic-Fit', ville: 'Marignane', dow: 3, time: '11:30', label: '11h30 – 12h30', capacity: 8 },
+    { lieu: 'Basic-Fit', ville: 'Marignane', dow: 3, time: '12:30', label: '12h30 – 13h30', capacity: 8 },
+    { lieu: 'Studio Performance', ville: 'Saint-Victoret', dow: 4, time: '20:00', label: '20h – 21h', capacity: 8 }
+  ];
+  var WEEKS_AHEAD = 5;
+  var MIN_NOTICE_HOURS = 12;
 
-  var slotGrid = document.getElementById('slotGrid');
   var status = document.getElementById('resaStatus');
+  var list = document.getElementById('sessionList');
   var formWrap = document.getElementById('resaFormWrap');
   var successWrap = document.getElementById('resaSuccessWrap');
   var recap = document.getElementById('resaRecap');
   var form = document.getElementById('resaForm');
-  var venuePicker = document.getElementById('venuePicker');
-  var step2 = document.getElementById('resaStep2');
-  var step3 = document.getElementById('resaStep3');
-  var step4 = document.getElementById('resaStep4');
 
-  var selectedVenue = null;
-  var selectedDate = null;
-  var selectedSlot = null;
-  var viewMonth = new Date(); viewMonth.setDate(1); viewMonth.setHours(0,0,0,0);
-  var today = new Date(); today.setHours(0,0,0,0);
-  var maxDate = new Date(today.getTime() + DAYS_AHEAD * 86400000);
-  var monthAvailability = {}; // { 'YYYY-MM-DD': true/false }
-
-  var calGrid = document.getElementById('calGrid');
-  var calLabel = document.getElementById('calLabel');
-  var calPrev = document.getElementById('calPrev');
-  var calNext = document.getElementById('calNext');
-
-  venuePicker.querySelectorAll('.venue-pill').forEach(function (pill) {
-    pill.addEventListener('click', function () {
-      venuePicker.querySelectorAll('.venue-pill').forEach(function (p) { p.classList.remove('active'); });
-      pill.classList.add('active');
-      selectedVenue = pill.dataset.venue;
-      showStep4();
-    });
-  });
-
-  function showStep4() {
-    var dows = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-    var months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
-    recap.innerHTML = 'Créneau choisi : <strong>' + dows[selectedDate.getDay()] + ' ' + selectedDate.getDate() + ' ' + months[selectedDate.getMonth()] + ' à ' + selectedSlot + '</strong><br>Lieu : <strong>' + selectedVenue + '</strong>';
-    step4.style.display = 'block';
-    step4.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+  var selectedOccurrence = null;
 
   function setStatus(text, show) {
     status.textContent = text;
     status.style.display = show ? 'block' : 'none';
   }
-
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function isoDate(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
 
-  function generateSlots() {
-    var slots = [];
-    var t = START_HOUR * 60 + START_MIN;
-    var end = END_HOUR * 60 + END_MIN;
-    while (t + SLOT_DURATION_MIN <= end) {
-      slots.push(pad(Math.floor(t / 60)) + ':' + pad(t % 60));
-      t += SLOT_DURATION_MIN;
-    }
-    return slots;
-  }
+  function buildOccurrences() {
+    var now = new Date();
+    var minTime = new Date(now.getTime() + MIN_NOTICE_HOURS * 3600000);
+    var occurrences = [];
 
-  var GOOGLE_BUSY_URL = 'https://xtehbaogitldkhguzmcw.supabase.co/functions/v1/quick-function';
-  var googleBusyEvents = [];
+    SESSIONS.forEach(function (session) {
+      var d = new Date(); d.setHours(0, 0, 0, 0);
+      var diff = (session.dow - d.getDay() + 7) % 7;
+      d.setDate(d.getDate() + diff);
 
-  function fetchGoogleBusy() {
-    return fetch(GOOGLE_BUSY_URL, {
-      headers: {
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'apikey': SUPABASE_ANON_KEY
-      }
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        googleBusyEvents = (data.events || []).map(function (e) {
-          return { start: new Date(e.start), end: new Date(e.end) };
-        });
-      })
-      .catch(function (err) {
-        console.error('Google Agenda indisponible, on continue sans :', err);
-        googleBusyEvents = [];
-      });
-  }
-
-  function isSlotBusyInGoogle(slotStart, slotEnd) {
-    return googleBusyEvents.some(function (ev) {
-      return slotStart < ev.end && slotEnd > ev.start;
-    });
-  }
-
-  function loadMonth() {
-    var monthStart = new Date(viewMonth);
-    var monthEnd = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0);
-    calGrid.innerHTML = '';
-    setStatus('Chargement du calendrier...', true);
-    slotGrid.innerHTML = '';
-    slotGrid.style.display = 'none';
-    formWrap.style.display = 'none';
-
-    Promise.all([
-      sb.from('reservations_public')
-        .select('slot_date, slot_time')
-        .gte('slot_date', isoDate(monthStart))
-        .lte('slot_date', isoDate(monthEnd)),
-      fetchGoogleBusy()
-    ]).then(function (results) {
-      var res = results[0];
-      if (res.error) {
-        setStatus('Erreur de connexion à la base de réservations : ' + res.error.message, true);
-        return;
-      }
-      var takenByDate = {};
-      (res.data || []).forEach(function (r) {
-        var key = r.slot_date;
-        if (!takenByDate[key]) takenByDate[key] = [];
-        takenByDate[key].push(r.slot_time.slice(0, 5));
-      });
-      computeMonthAvailability(monthStart, monthEnd, takenByDate);
-      renderCalendar(monthStart, monthEnd);
-      setStatus('', false);
-    });
-  }
-
-  function computeMonthAvailability(monthStart, monthEnd, takenByDate) {
-    monthAvailability = {};
-    var allSlots = generateSlots();
-    var d = new Date(monthStart);
-    while (d <= monthEnd) {
-      var key = isoDate(d);
-      if (WORK_DAYS.indexOf(d.getDay()) !== -1 && d >= today && d <= maxDate) {
-        var taken = takenByDate[key] || [];
-        var minTime = new Date(Date.now() + MIN_NOTICE_HOURS * 3600000);
-        var freeCount = allSlots.filter(function (time) {
-          if (taken.indexOf(time) !== -1) return false;
-          var parts = time.split(':');
-          var slotStart = new Date(d);
-          slotStart.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
-          if (slotStart < minTime) return false;
-          var slotEnd = new Date(slotStart.getTime() + SLOT_DURATION_MIN * 60000);
-          if (isSlotBusyInGoogle(slotStart, slotEnd)) return false;
-          return true;
-        }).length;
-        monthAvailability[key] = freeCount > 0;
-      }
-      d.setDate(d.getDate() + 1);
-    }
-  }
-
-  function renderCalendar(monthStart, monthEnd) {
-    var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-    calLabel.textContent = months[viewMonth.getMonth()] + ' ' + viewMonth.getFullYear();
-
-    var firstDow = (monthStart.getDay() + 6) % 7; // lundi = 0
-    for (var i = 0; i < firstDow; i++) {
-      var empty = document.createElement('div');
-      empty.className = 'cal-cell cal-cell--empty';
-      calGrid.appendChild(empty);
-    }
-
-    var d = new Date(monthStart);
-    while (d <= monthEnd) {
-      var key = isoDate(d);
-      var cell = document.createElement('div');
-      cell.textContent = d.getDate();
-
-      if (Object.prototype.hasOwnProperty.call(monthAvailability, key)) {
-        var isAvailable = monthAvailability[key];
-        cell.className = 'cal-cell ' + (isAvailable ? 'cal-cell--available' : 'cal-cell--full');
-        if (isAvailable) {
-          (function (dateObj, cellEl) {
-            cellEl.addEventListener('click', function () {
-              calGrid.querySelectorAll('.cal-cell').forEach(function (c) { c.classList.remove('cal-cell--selected'); });
-              cellEl.classList.add('cal-cell--selected');
-              selectDate(dateObj);
-            });
-          })(new Date(d), cell);
+      for (var i = 0; i < WEEKS_AHEAD; i++) {
+        var occDate = new Date(d);
+        occDate.setDate(occDate.getDate() + i * 7);
+        var parts = session.time.split(':');
+        var occDateTime = new Date(occDate);
+        occDateTime.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+        if (occDateTime >= minTime) {
+          occurrences.push({ session: session, date: occDate, datetime: occDateTime });
         }
-      } else {
-        cell.className = 'cal-cell cal-cell--muted';
-        cell.addEventListener('click', function () {
-          step2.style.display = 'none';
-          step3.style.display = 'none';
-          step4.style.display = 'none';
-          setStatus('Ce jour est fermé (week-end, déjà passé, ou trop loin dans le futur).', true);
-        });
       }
+    });
 
-      calGrid.appendChild(cell);
-      d.setDate(d.getDate() + 1);
+    occurrences.sort(function (a, b) { return a.datetime - b.datetime; });
+    return occurrences;
+  }
+
+  function renderList(occurrences, countsByKey) {
+    list.innerHTML = '';
+    var months = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+
+    occurrences.forEach(function (occ) {
+      var key = isoDate(occ.date) + '_' + occ.session.time + '_' + occ.session.lieu;
+      var taken = countsByKey[key] || 0;
+      var remaining = occ.session.capacity - taken;
+      var isFull = remaining <= 0;
+
+      var card = document.createElement('div');
+      card.className = 'session-card' + (isFull ? ' full' : '');
+
+      var spotsClass = isFull ? 'full' : (remaining <= 2 ? 'low' : 'ok');
+      var spotsLabel = isFull ? 'Complet' : remaining + ' place' + (remaining > 1 ? 's' : '');
+
+      card.innerHTML =
+        '<div><div class="session-card__date">' + occ.date.getDate() + '</div>' +
+        '<div class="session-card__dow">' + months[occ.date.getMonth()] + '</div></div>' +
+        '<div class="session-card__info">' +
+        '<div class="session-card__venue">' + occ.session.lieu + '</div>' +
+        '<div class="session-card__meta">' + occ.session.ville + ' · ' + occ.session.label + '</div>' +
+        '</div>' +
+        '<div class="session-card__spots ' + spotsClass + '">' + spotsLabel + '</div>';
+
+      if (!isFull) {
+        card.addEventListener('click', function () { selectOccurrence(occ, remaining); });
+      }
+      list.appendChild(card);
+    });
+
+    if (occurrences.length === 0) {
+      setStatus('Aucune séance disponible pour le moment.', true);
     }
   }
 
-  calPrev.addEventListener('click', function () {
-    var prevMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1);
-    if (prevMonth.getFullYear() === today.getFullYear() && prevMonth.getMonth() === today.getMonth() || prevMonth > today) {
-      viewMonth = prevMonth;
-      loadMonth();
-    }
-  });
-  calNext.addEventListener('click', function () {
-    var nextMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1);
-    if (nextMonth <= maxDate) {
-      viewMonth = nextMonth;
-      loadMonth();
-    }
-  });
+  function loadSessions() {
+    setStatus('Chargement des séances...', true);
+    list.innerHTML = '';
+    formWrap.style.display = 'none';
+    successWrap.style.display = 'none';
 
-  function selectDate(date) {
-    selectedDate = date;
-    selectedSlot = null;
-    selectedVenue = null;
-    step3.style.display = 'none';
-    step4.style.display = 'none';
-    venuePicker.querySelectorAll('.venue-pill').forEach(function (p) { p.classList.remove('active'); });
-    step2.style.display = 'block';
-    slotGrid.innerHTML = '';
-    setStatus('Chargement des créneaux...', true);
+    var occurrences = buildOccurrences();
+    if (occurrences.length === 0) {
+      renderList(occurrences, {});
+      return;
+    }
+    var minDate = isoDate(occurrences[0].date);
+    var maxDate = isoDate(occurrences[occurrences.length - 1].date);
 
     sb.from('reservations_public')
-      .select('slot_time')
-      .eq('slot_date', isoDate(date))
+      .select('slot_date, slot_time, lieu')
+      .gte('slot_date', minDate)
+      .lte('slot_date', maxDate)
       .then(function (res) {
         if (res.error) {
           setStatus('Erreur de connexion : ' + res.error.message, true);
           return;
         }
-        var taken = (res.data || []).map(function (r) { return r.slot_time.slice(0, 5); });
-        renderSlots(date, taken);
+        var countsByKey = {};
+        (res.data || []).forEach(function (r) {
+          var key = r.slot_date + '_' + r.slot_time.slice(0, 5) + '_' + r.lieu;
+          countsByKey[key] = (countsByKey[key] || 0) + 1;
+        });
+        setStatus('', false);
+        renderList(occurrences, countsByKey);
       });
   }
 
-  function renderSlots(date, taken) {
-    setStatus('', false);
-    var now = new Date();
-    var minTime = new Date(now.getTime() + MIN_NOTICE_HOURS * 3600000);
-    var allSlots = generateSlots();
-    var visibleCount = 0;
-
-    allSlots.forEach(function (time) {
-      var parts = time.split(':');
-      var slotDateTime = new Date(date);
-      slotDateTime.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
-      if (slotDateTime < minTime) return;
-
-      var slotEnd = new Date(slotDateTime.getTime() + SLOT_DURATION_MIN * 60000);
-      var isTaken = taken.indexOf(time) !== -1 || isSlotBusyInGoogle(slotDateTime, slotEnd);
-
-      visibleCount++;
-      var pill = document.createElement('div');
-      pill.className = 'slot-pill' + (isTaken ? ' taken' : '');
-      pill.textContent = time;
-      if (!isTaken) {
-        pill.addEventListener('click', function () {
-          slotGrid.querySelectorAll('.slot-pill').forEach(function (p) { p.classList.remove('selected'); });
-          pill.classList.add('selected');
-          selectSlot(time);
-        });
-      }
-      slotGrid.appendChild(pill);
-    });
-
-    if (visibleCount === 0) {
-
-      setStatus('Aucun créneau disponible ce jour-là.', true);
-    }
-  }
-
-  function selectSlot(time) {
-    selectedSlot = time;
-    step3.style.display = 'block';
-    step3.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  function selectOccurrence(occ, remaining) {
+    selectedOccurrence = occ;
+    var dows = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    var months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    recap.innerHTML =
+      'Séance choisie : <strong>' + dows[occ.date.getDay()] + ' ' + occ.date.getDate() + ' ' + months[occ.date.getMonth()] + '</strong><br>' +
+      occ.session.label + ' · <strong>' + occ.session.lieu + '</strong> (' + occ.session.ville + ')<br>' +
+      '<span style="font-size:11px;color:var(--text-dim)">' + remaining + ' place(s) restante(s)</span>';
+    formWrap.style.display = 'block';
+    formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   form.addEventListener('submit', function (e) {
@@ -567,35 +331,47 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.textContent = 'Confirmation en cours...';
     btn.disabled = true;
 
-    sb.from('reservations').insert({
-      slot_date: isoDate(selectedDate),
-      slot_time: selectedSlot,
-      lieu: selectedVenue,
-      prenom: document.getElementById('rPrenom').value.trim(),
-      nom: document.getElementById('rNom').value.trim(),
-      email: document.getElementById('rEmail').value.trim(),
-      telephone: document.getElementById('rTel').value.trim()
-    }).then(function (res) {
-      btn.textContent = original;
-      btn.disabled = false;
-      if (res.error) {
-        if (res.error.code === '23505') {
-          alert('Ce créneau vient tout juste d\'être pris. Choisis-en un autre.');
-          selectDate(selectedDate);
-        } else {
-          console.error(res.error);
-          alert("Une erreur est survenue. Réessaie ou contacte-moi directement via WhatsApp.");
+    var occ = selectedOccurrence;
+
+    sb.from('reservations_public')
+      .select('slot_date', { count: 'exact', head: true })
+      .eq('slot_date', isoDate(occ.date))
+      .eq('slot_time', occ.session.time)
+      .eq('lieu', occ.session.lieu)
+      .then(function (checkRes) {
+        var currentCount = checkRes.count || 0;
+        if (currentCount >= occ.session.capacity) {
+          btn.textContent = original;
+          btn.disabled = false;
+          alert('Cette séance vient de se remplir. Choisis-en une autre.');
+          loadSessions();
+          return;
         }
-        return;
-      }
-      step2.style.display = 'none';
-      step3.style.display = 'none';
-      step4.style.display = 'none';
-      successWrap.style.display = 'block';
-    });
+
+        sb.from('reservations').insert({
+          slot_date: isoDate(occ.date),
+          slot_time: occ.session.time,
+          lieu: occ.session.lieu,
+          prenom: document.getElementById('rPrenom').value.trim(),
+          nom: document.getElementById('rNom').value.trim(),
+          email: document.getElementById('rEmail').value.trim(),
+          telephone: document.getElementById('rTel').value.trim()
+        }).then(function (res) {
+          btn.textContent = original;
+          btn.disabled = false;
+          if (res.error) {
+            console.error(res.error);
+            alert("Une erreur est survenue. Réessaie ou contacte-moi directement via WhatsApp.");
+            return;
+          }
+          list.style.display = 'none';
+          formWrap.style.display = 'none';
+          successWrap.style.display = 'block';
+        });
+      });
   });
 
-  loadMonth();
+  loadSessions();
 });
 </script>
 
