@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
-        sb.from('reservations').insert({
+        var bookingData = {
           slot_date: isoDate(occ.date),
           slot_time: occ.session.time,
           lieu: occ.session.lieu,
@@ -356,7 +356,9 @@ document.addEventListener('DOMContentLoaded', function () {
           nom: document.getElementById('rNom').value.trim(),
           email: document.getElementById('rEmail').value.trim(),
           telephone: document.getElementById('rTel').value.trim()
-        }).then(function (res) {
+        };
+
+        sb.from('reservations').insert(bookingData).then(function (res) {
           btn.textContent = original;
           btn.disabled = false;
           if (res.error) {
@@ -367,6 +369,19 @@ document.addEventListener('DOMContentLoaded', function () {
           list.style.display = 'none';
           formWrap.style.display = 'none';
           successWrap.style.display = 'block';
+
+          // Ajoute/actualise l'événement sur le bon agenda Google.
+          // Ne bloque jamais la confirmation visible au client, même
+          // si cet appel échoue — la réservation est déjà enregistrée.
+          fetch('https://xtehbaogitldkhguzmcw.supabase.co/functions/v1/google-calendar-write', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+              'apikey': SUPABASE_ANON_KEY
+            },
+            body: JSON.stringify(bookingData)
+          }).catch(function (err) { console.error('Google Agenda non synchronisé :', err); });
         });
       });
   });
